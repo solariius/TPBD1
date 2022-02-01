@@ -1,24 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { MouseEventHandler, useCallback, useState } from "react";
+import logo from "./logo.svg";
+import "./App.css";
+import ModalRemover from "./pages/pagina1/components/ModalRemover";
+import { Button } from "@mui/material";
+import Edicao from "./Shared/Edicao";
 
 function App() {
+  const [modalAberto, setModalAberto] = useState(false);
+  const handleFecharModal = useCallback(() => setModalAberto(false), []);
+
+  const handleConfirmarModal = useCallback(() => {
+    setModalAberto(false);
+    console.log("CONFIRMA");
+  }, []);
+
+  const onClickModal: MouseEventHandler<HTMLButtonElement> = () => {
+    setModalAberto(true);
+  };
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Button onClick={onClickModal}>clique</Button>
+      <Edicao />
+
+      <ModalRemover
+        modalAberto={modalAberto}
+        handleFecharModal={handleFecharModal}
+        handleConfirmarModal={handleConfirmarModal}
+      />
     </div>
   );
 }
