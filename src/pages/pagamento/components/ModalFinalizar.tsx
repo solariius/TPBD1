@@ -1,5 +1,5 @@
 import { FC } from "react";
-import Modal from "./Modal";
+import Modal from "../../../Shared/Modal/Modal";
 
 interface IModalFinalizarProps {
   modalAberto: boolean;
@@ -12,7 +12,7 @@ const ModalFinalizar: FC<IModalFinalizarProps> = ({
   handleFecharModal,
   handleConfirmarModal,
 }) => {
-  //recebe um node com numero do pedido e typography
+  // recebe um node com numero do pedido e typography
   return (
     <Modal
       modalAberto={modalAberto}

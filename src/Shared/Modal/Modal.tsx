@@ -9,7 +9,6 @@ import {
   IconButton,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-export const SECONDARY_COLOR = "#006654";
 
 export function ehString(object: unknown): object is string {
   return typeof object === "string";

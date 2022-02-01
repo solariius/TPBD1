@@ -1,13 +1,17 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-//import App from "./App";
+
+import Pagamento from "./pages/pagamento/view/Pagamento";
 import reportWebVitals from "./reportWebVitals";
-import Edicao from "./Shared/Edicao";
+
+// import Cardapio from "./pages/cardapio/view/Cardapio";
+// import Edicao from "./pages/edicao/view/Edicao";
+// import App from "./App";
 
 ReactDOM.render(
   <React.StrictMode>
-    <Edicao />
+    <Pagamento />
   </React.StrictMode>,
   document.getElementById("root")
 );

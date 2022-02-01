@@ -1,5 +1,5 @@
 import { FC } from "react";
-import Modal from "./Modal";
+import Modal from "../../../Shared/Modal/Modal";
 
 interface IModalInserirProps {
   modalInserirAberto: boolean;
@@ -12,7 +12,7 @@ const ModalInserir: FC<IModalInserirProps> = ({
   handleFecharModalInserir,
   handleConfirmarModalInserir,
 }) => {
-  //recebe um node com 3 inputs (titulo, descrição e preço)
+  // recebe um node com 3 inputs (titulo, descrição e preço)
   return (
     <Modal
       modalAberto={modalInserirAberto}

@@ -1,5 +1,5 @@
 import { FC } from "react";
-import Modal from "./Modal";
+import Modal from "../../../Shared/Modal/Modal";
 
 interface IModalEditarProps {
   modalEditarAberto: boolean;
@@ -12,7 +12,7 @@ const ModalEditar: FC<IModalEditarProps> = ({
   handleFecharModalEditar,
   handleConfirmarModalEditar,
 }) => {
-  //recebe um node select para procurar o item e pode editar valor titulo e descrição
+  // recebe um node select para procurar o item e pode editar valor titulo e descrição
   return (
     <Modal
       modalAberto={modalEditarAberto}

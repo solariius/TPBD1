@@ -1,5 +1,5 @@
 import { FC } from "react";
-import Modal from "./Modal";
+import Modal from "../../../Shared/Modal/Modal";
 
 interface IModalRemoverProps {
   modalAberto: boolean;
@@ -12,7 +12,7 @@ const ModalRemover: FC<IModalRemoverProps> = ({
   handleFecharModal,
   handleConfirmarModal,
 }) => {
-  //recebe um node com select para procurar um item na lista e remover
+  // recebe um node com select para procurar um item na lista e remover
   return (
     <Modal
       modalAberto={modalAberto}

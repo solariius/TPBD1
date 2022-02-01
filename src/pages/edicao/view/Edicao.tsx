@@ -1,12 +1,13 @@
-//4 botoes (inserir,remover,editar e voltar para cardápio)
+// 4 botoes (inserir,remover,editar e voltar para cardápio)
 
 import { Button, Grid, Typography } from "@mui/material";
 import { FC, MouseEventHandler, useCallback, useState } from "react";
-import ModalEditar from "./Modal/ModalEditar";
-import ModalInserir from "./Modal/ModalInserir";
-import ModalRemover from "./Modal/ModalRemover";
+import { PRIMARY, SECONDARY } from "../../../config/theme";
+import ModalEditar from "../components/ModalEditar";
+import ModalInserir from "../components/ModalInserir";
+import ModalRemover from "../components/ModalRemover";
 
-const Edicao: FC = ({}) => {
+const Edicao: FC = () => {
   const [modalInserirAberto, setModalInserirAberto] = useState(false);
   const [modalRemoverAberto, setModalRemoverAberto] = useState(false);
   const [modalEditarAberto, setModalEditarAberto] = useState(false);
@@ -51,41 +52,54 @@ const Edicao: FC = ({}) => {
   }, []);
 
   return (
-    <Grid container item sx={{ backgroundColor: "#8fe3ad" }}>
-      <Grid item>
-        <Typography fontSize="1.5rem">
-          Selecione uma das opções abaixo:
-        </Typography>
-      </Grid>
+    <Grid
+      container
+      sx={{ minWidth: "100vh", minHeight: "100vh", backgroundColor: PRIMARY }}
+    >
       <Grid
-        item
-        rowSpacing={3}
-        sx={{ justifyContent: "center", alignItems: "center" }}
+        container
+        direction="column"
+        justifyContent="center"
+        alignItems="center"
+        rowSpacing={5}
       >
-        <Button
-          sx={{ color: "black", backgroundColor: "#006654", width: "300px" }}
-          onClick={onClickInserir}
-        >
-          Inserir
-        </Button>
-        <Button
-          sx={{ color: "black", backgroundColor: "#006654", width: "300px" }}
-          onClick={onClickRemover}
-        >
-          Remover
-        </Button>
-        <Button
-          sx={{ color: "black", backgroundColor: "#006654", width: "300px" }}
-          onClick={onClickEditar}
-        >
-          Editar
-        </Button>
-        <Button
-          sx={{ color: "black", backgroundColor: "#006654", width: "300px" }}
-          onClick={onClickCardapio}
-        >
-          Voltar para o cardápio
-        </Button>
+        <Grid item sx={{ margin: "1rem" }}>
+          <Typography fontSize="2rem" color={SECONDARY}>
+            Selecione uma das opções abaixo:
+          </Typography>
+        </Grid>
+        <Grid item>
+          <Button
+            sx={{ color: "black", backgroundColor: SECONDARY, width: "300px" }}
+            onClick={onClickInserir}
+          >
+            Inserir
+          </Button>
+        </Grid>
+        <Grid item>
+          <Button
+            sx={{ color: "black", backgroundColor: SECONDARY, width: "300px" }}
+            onClick={onClickRemover}
+          >
+            Remover
+          </Button>
+        </Grid>
+        <Grid item>
+          <Button
+            sx={{ color: "black", backgroundColor: SECONDARY, width: "300px" }}
+            onClick={onClickEditar}
+          >
+            Editar
+          </Button>
+        </Grid>
+        <Grid item>
+          <Button
+            sx={{ color: "black", backgroundColor: SECONDARY, width: "300px" }}
+            onClick={onClickCardapio}
+          >
+            Voltar para o cardápio
+          </Button>
+        </Grid>
       </Grid>
       <Grid item>
         <ModalInserir

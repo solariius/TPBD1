@@ -1,7 +1,7 @@
 // lista com todos os itens e valor
-//somatório dos valores
-//forma de pagamento (pix, credito/debito) com mensagem
-//botão finalizar q abre o modal de finalizaçao
+// somatório dos valores
+// forma de pagamento (pix, credito/debito) com mensagem
+// botão finalizar q abre o modal de finalizaçao
 
 import {
   FormControlLabel,
@@ -12,13 +12,29 @@ import {
   Typography,
   Button,
 } from "@mui/material";
-import { FC } from "react";
+import { FC, useState } from "react";
+import { PRIMARY, SECONDARY } from "../../../config/theme";
+import CardInformativo from "../../../Shared/cardInformativo/CardInformativo";
+import { formaDePagamento } from "../../../Shared/constantes/Constantes";
 
 const Pagamento: FC = () => {
+  const [formaPagamentoSelecionada, setFormaPagamentoSelecionada] =
+    useState<number>(1);
+
+  const handleTipoPagamento = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setFormaPagamentoSelecionada(parseInt(event.target.value));
+  };
+
   return (
-    <Grid container item>
-      <Typography>Selecione a forma de pagamento: </Typography>
+    <Grid
+      container
+      item
+      sx={{ minWidth: "100vh", minHeight: "100vh", backgroundColor: PRIMARY }}
+    >
       <Grid item>
+        <Typography fontSize="2rem" color={SECONDARY}>
+          Selecione a forma de pagamento:{" "}
+        </Typography>
         <FormControl component="fieldset">
           <RadioGroup
             sx={{ alignItems: "flex-start", margin: "0px" }}
@@ -33,8 +49,7 @@ const Pagamento: FC = () => {
                 <Typography
                   variant="h5"
                   color={
-                    formaPagamentoSelecionada ===
-                    formaDePagamento.pix.codigo
+                    formaPagamentoSelecionada === formaDePagamento.pix.codigo
                       ? "secondary"
                       : "primary"
                   }
@@ -84,22 +99,28 @@ const Pagamento: FC = () => {
         </FormControl>
       </Grid>
       {formaPagamentoSelecionada === formaDePagamento.pix.codigo && (
-         <CardInformativo
-            mensagem={
-              'solariius@gmail.com'
-              ''
-            }
+        <CardInformativo
+          mensagem={
+            "solariius@gmail.com  OU gabrielbbmatozinhos@gmail.com OU cminoves26@gmail.com"
+          }
         />
       )}
 
       {(formaPagamentoSelecionada === formaDePagamento.credito.codigo ||
         formaPagamentoSelecionada === formaDePagamento.debito.codigo) && (
-        
-          <CardInformativo mensagem={'O entregador levará a máquina de cartão para a realização do pagamento.'} />
-        
+        <CardInformativo
+          mensagem={
+            "O entregador levará a máquina de cartão para a realização do pagamento."
+          }
+        />
       )}
-
-      <Button>Finalizar</Button>
+      <Grid item>
+        <Button
+          sx={{ color: "black", backgroundColor: SECONDARY, width: "150px" }}
+        >
+          Finalizar
+        </Button>
+      </Grid>
     </Grid>
   );
 };
