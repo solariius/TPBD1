@@ -6,12 +6,12 @@ import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 
 import Cardapio from "./pages/cardapio/view/Cardapio";
-// import Edicao from "./pages/edicao/view/Edicao";
+import Edicao from "./pages/edicao/view/Edicao";
 // import App from "./App";
 
 ReactDOM.render(
   <React.StrictMode>
-    <Cardapio />
+    <Edicao />
   </React.StrictMode>,
   document.getElementById("root")
 );

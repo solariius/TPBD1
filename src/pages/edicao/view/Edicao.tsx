@@ -6,7 +6,6 @@ import { PRIMARY, SECONDARY } from "../../../config/theme";
 import ModalEditar from "../components/ModalEditar";
 import ModalInserir from "../components/ModalInserir";
 import ModalRemover from "../components/ModalRemover";
-
 const Edicao: FC = () => {
   const [modalInserirAberto, setModalInserirAberto] = useState(false);
   const [modalRemoverAberto, setModalRemoverAberto] = useState(false);

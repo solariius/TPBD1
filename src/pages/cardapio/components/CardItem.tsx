@@ -1,9 +1,20 @@
 import { Grid } from "@mui/material";
 import { FC } from "react";
 import { SECONDARY } from "../../../config/theme";
-// aqui quero retornar um item desses para cada prato da lista de pratos (ps eu sei que é no cardapio.tsx)
-
-const CardItem: FC = () => {
+interface ICardapioProps {
+  nomeRefeicao: string;
+  valor: number;
+  descricaoRefeicao: string;
+  quantidadeRefeicao: number;
+  calorias: number;
+}
+const CardItem: FC<ICardapioProps> = ({
+  nomeRefeicao,
+  valor,
+  descricaoRefeicao,
+  quantidadeRefeicao,
+  calorias,
+}) => {
   return (
     <Grid
       container
@@ -17,18 +28,20 @@ const CardItem: FC = () => {
         paddingLeft: "16px",
       }}
     >
-      <Grid item xs={6}>
-        prato.titulo
+      <Grid item xs={8}>
+        {nomeRefeicao}
       </Grid>
-
-      <Grid item xs={6}>
-        prato.valor
+      <Grid item xs={2}>
+        {calorias}
       </Grid>
-      <Grid item xs={6}>
-        prato.descrição
+      <Grid item xs={2}>
+        {valor}
       </Grid>
-      <Grid item xs={6}>
-        prato.quantidade
+      <Grid item xs={10}>
+        {descricaoRefeicao}
+      </Grid>
+      <Grid item xs={2}>
+        {quantidadeRefeicao}
       </Grid>
     </Grid>
   );

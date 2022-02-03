@@ -3,14 +3,21 @@
 
 import { Edit } from "@mui/icons-material";
 import { Button, Grid } from "@mui/material";
-import { FC, MouseEventHandler } from "react";
+import { FC, MouseEventHandler, useEffect, useState } from "react";
 import { PRIMARY, SECONDARY } from "../../../config/theme";
+import Repository from "../../../repositories/Repository";
+import { IRefeicao } from "../../../Shared/interfaces/IRefeicao";
 import CardItem from "../components/CardItem";
 
 const Cardapio: FC = () => {
+  const [itemCardapio, setItemCardapio] = useState<IRefeicao[]>();
+  useEffect(() => {
+    setItemCardapio(Repository.listarCardapio());
+  }, []);
   const onClickPagar: MouseEventHandler<HTMLButtonElement> = () => {
     console.log("TELA PAGAMENTO");
   };
+
   return (
     <Grid
       container
@@ -31,9 +38,19 @@ const Cardapio: FC = () => {
         alignItems="center"
         rowSpacing={4}
       >
-        <Grid item>
-          <CardItem />
-        </Grid>
+        {itemCardapio?.length &&
+          itemCardapio.map((item) => (
+            <Grid item>
+              <CardItem
+                key={item.idRefeicao}
+                nomeRefeicao={item.nomeRefeicao}
+                valor={item.valorRefeicao}
+                descricaoRefeicao={item.descricaoRefeicao}
+                quantidadeRefeicao={item.quantidadeRefeicao}
+                calorias={item.calorias}
+              />
+            </Grid>
+          ))}
         <Grid item>
           <Button
             sx={{ color: "black", backgroundColor: SECONDARY, width: "300px" }}

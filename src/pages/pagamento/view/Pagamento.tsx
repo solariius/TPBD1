@@ -32,6 +32,12 @@ const Pagamento: FC = () => {
       sx={{ minWidth: "100vh", minHeight: "100vh", backgroundColor: PRIMARY }}
     >
       <Grid item>
+        <Typography>
+          INFORMAÇÕES DO PEDIDO COMO ENDEREÇO, NOME CLIENTE E VALOR TOTAL COM A
+          LISTA DE TODOS OS ITENS
+        </Typography>
+      </Grid>
+      <Grid item>
         <Typography fontSize="2rem" color={SECONDARY}>
           Selecione a forma de pagamento:{" "}
         </Typography>

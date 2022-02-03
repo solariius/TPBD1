@@ -1,3 +1,4 @@
+import { Grid, Typography } from "@mui/material";
 import { FC } from "react";
 import Modal from "../../../Shared/Modal/Modal";
 
@@ -19,6 +20,19 @@ const ModalFinalizar: FC<IModalFinalizarProps> = ({
       handleFecharModal={handleFecharModal}
       textoBotaoPrincipal="Fechar"
       iconeFechar={true}
+      descricaoModal={
+        <Grid container>
+          <Typography>
+            Pedido realizado, aguarde o entregador chegar com o seu pedido
+            quentinho!
+          </Typography>
+          <Grid item>
+            <Typography>Id pedido</Typography>
+
+            <Grid item>{idPedido}</Grid>
+          </Grid>
+        </Grid>
+      }
     />
   );
 };
