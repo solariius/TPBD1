@@ -6,4 +6,5 @@ export interface IPedidoCompleto {
   cliente: ICliente;
   refeicao: IRefeicao[];
   idFormaPagamento: number;
+  
 }

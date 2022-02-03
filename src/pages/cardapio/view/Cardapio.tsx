@@ -1,6 +1,5 @@
 // cada refeicao é um cardItem, tem engrenagem que faz
 // ir pra tela de edição e carrinho que faz ir pra tela de pagamento
-
 import { Edit } from "@mui/icons-material";
 import { Button, Grid } from "@mui/material";
 import { FC, MouseEventHandler, useEffect, useState } from "react";
@@ -31,6 +30,7 @@ const Cardapio: FC = () => {
       >
         <Edit sx={{ color: SECONDARY }}></Edit>
       </Grid>
+      <Grid item>  <img src="logoVeggie2world.png" alt="" height="50px" width="50px" /></Grid>
       <Grid
         container
         direction="column"
