@@ -9,7 +9,7 @@ interface CardInformativoProps {
 
 const CardInformativo: FC<CardInformativoProps> = ({ mensagem }) => {
   return (
-    <Stack sx={{ width: "100%" }}>
+    <Stack sx={{ width: "50%" }}>
       <Alert
         sx={{
           fontSize: "1rem",

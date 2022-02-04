@@ -32,6 +32,35 @@ class Repository {
       },
     ];
   }
+  listarPedidos(): IPedidoCompleto[] {
+    return [
+      {
+        idPedido: 12,
+
+        cliente: {
+          nome: "Amanda",
+          cpf: 13967450686,
+          endereco: {
+            cep: 32315040,
+            logradouro: "José faria",
+            numero: 1900,
+            complemento: "402",
+          },
+        },
+        refeicao: [
+          {
+            idRefeicao: 1,
+            nomeRefeicao: "feijoada",
+            descricaoRefeicao: "gostosa",
+            valorRefeicao: 50,
+            quantidadeRefeicao: 1,
+            calorias: 450,
+          },
+        ],
+        idFormaPagamento: 1,
+      },
+    ];
+  }
   inserirItemCardapio(item: IRefeicao) {
     console.log("item adicionado com sucesso", item);
   }
