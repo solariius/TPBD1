@@ -39,24 +39,25 @@ const ModalEditar: FC<IModalEditarProps> = ({
       textoBotaoSecundario="Cancelar"
       confirmacao={true}
       iconeFechar={true}
-      tituloModal="Editar Refeição"
+      tituloModal="Editar refeição do cardápio"
       descricaoModal={
         <Grid
           container
           direction="column"
           justifyContent="center"
           alignItems="center"
-          rowSpacing={4}
+          rowSpacing={3}
         >
-          <Typography>Digite o nome da refeição que deseja editar.</Typography>
-          <Select
-            id="refeicao"
-            labelId="refeicao-label"
-            value={""}
-            variant="outlined"
-            onChange={onChangeRefeicao}
-            inputRef={refItem}
-          />
+          <Grid item>
+            <Select
+              id="refeicao"
+              labelId="refeicao-label"
+              value={""}
+              variant="outlined"
+              onChange={onChangeRefeicao}
+              inputRef={refItem}
+            />
+          </Grid>
           <Grid item>
             <TextField
               label="Item"

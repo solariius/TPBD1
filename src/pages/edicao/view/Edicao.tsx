@@ -53,20 +53,44 @@ const Edicao: FC = () => {
   return (
     <Grid
       container
+      direction="column"
       sx={{ minWidth: "100vh", minHeight: "100vh", backgroundColor: PRIMARY }}
     >
+      <Grid
+        container
+        item
+        justifyContent="center"
+        marginTop="2rem"
+        marginBottom="1rem"
+        alignItems="center"
+      >
+        <Grid item>
+          <img
+            src="logoVeggie2world.png"
+            alt="Logo veggie to world"
+            width="48px"
+            height="48px"
+          />
+        </Grid>
+        <Grid item>
+          <Typography
+            fontWeight="700"
+            fontSize="1.5rem"
+            marginLeft="1rem"
+            sx={{ color: SECONDARY }}
+          >
+            Selecione uma das opções abaixo:
+          </Typography>
+        </Grid>
+      </Grid>
       <Grid
         container
         direction="column"
         justifyContent="center"
         alignItems="center"
         rowSpacing={5}
+        marginTop="4rem"
       >
-        <Grid item sx={{ margin: "1rem" }}>
-          <Typography fontSize="2rem" color={SECONDARY}>
-            Selecione uma das opções abaixo:
-          </Typography>
-        </Grid>
         <Grid item>
           <Button
             sx={{ color: "black", backgroundColor: SECONDARY, width: "300px" }}
