@@ -44,13 +44,46 @@ const Pagamento: FC<PagamentoProps> = ({
   return (
     <Grid
       container
-      direction="column"
-      rowSpacing={4}
+      direction="row"
       sx={{ minWidth: "100vh", minHeight: "100vh", backgroundColor: PRIMARY }}
     >
-      <Grid container item>
+      <Grid
+        container
+        item
+        marginLeft="1rem"
+        marginTop="1rem"
+        alignItems="center"
+      >
+        <Grid item>
+          <img src="logoVeggie2world.png" alt="" width="48px" height="48px" />
+        </Grid>
+        <Grid item>
+          <Typography
+            fontWeight="700"
+            fontSize="1.2rem"
+            sx={{ color: SECONDARY }}
+          >
+            Resumo do pedido e forma de pagamento
+          </Typography>
+        </Grid>
+      </Grid>
+
+      <Grid
+        container
+        item
+        justifyContent="space-between"
+        marginBottom="24px"
+        marginLeft="1rem"
+        marginRight="1rem"
+      >
         <Grid item sm={12}>
-          <Typography>Dados Cliente</Typography>
+          <Typography
+            fontWeight="700"
+            fontSize="1.2rem"
+            sx={{ color: SECONDARY }}
+          >
+            Dados Cliente
+          </Typography>
         </Grid>
         <Grid item>
           <TextField
@@ -58,7 +91,7 @@ const Pagamento: FC<PagamentoProps> = ({
             variant="outlined"
             fullWidth
             inputProps={{
-              maxLength: 100,
+              maxLength: 50,
             }}
             inputRef={refNomeCliente}
           />
@@ -75,9 +108,22 @@ const Pagamento: FC<PagamentoProps> = ({
           </Grid>
         </Grid>
       </Grid>
-      <Grid container item>
+      <Grid
+        container
+        item
+        justifyContent="space-between"
+        marginBottom="24px"
+        marginLeft="1rem"
+        marginRight="1rem"
+      >
         <Grid item sm={12}>
-          <Typography>Endereço Cliente</Typography>
+          <Typography
+            fontWeight="700"
+            fontSize="1.2rem"
+            sx={{ color: SECONDARY }}
+          >
+            Endereço Cliente
+          </Typography>
         </Grid>
         <Grid item>
           <TextField
@@ -85,7 +131,7 @@ const Pagamento: FC<PagamentoProps> = ({
             variant="outlined"
             fullWidth
             inputProps={{
-              maxLength: 250,
+              maxLength: 8,
             }}
             inputRef={refCEP}
           />
@@ -96,7 +142,7 @@ const Pagamento: FC<PagamentoProps> = ({
             variant="outlined"
             fullWidth
             inputProps={{
-              maxLength: 250,
+              maxLength: 100,
             }}
             inputRef={refLogradouro}
           />
@@ -107,7 +153,7 @@ const Pagamento: FC<PagamentoProps> = ({
             variant="outlined"
             fullWidth
             inputProps={{
-              maxLength: 250,
+              maxLength: 4,
             }}
             inputRef={refNumero}
           />
@@ -118,7 +164,7 @@ const Pagamento: FC<PagamentoProps> = ({
             variant="outlined"
             fullWidth
             inputProps={{
-              maxLength: 250,
+              maxLength: 10,
             }}
             inputRef={refComplemento}
           />
@@ -129,9 +175,12 @@ const Pagamento: FC<PagamentoProps> = ({
         item
         borderRadius="4px"
         direction="row"
+        sm={12}
+        marginLeft="1rem"
+        marginRight="1rem"
         sx={{
           backgroundColor: SECONDARY,
-          width: "1100px",
+          width: "80%",
           paddingBottom: "16px",
           paddingLeft: "16px",
         }}
@@ -140,9 +189,9 @@ const Pagamento: FC<PagamentoProps> = ({
           INFORMAÇÕES DO PEDIDO VALOR TOTAL COM A LISTA DE TODOS OS ITENS
         </Typography>
       </Grid>
-      <Grid item>
-        <Typography fontSize="1rem" color={SECONDARY}>
-          Selecione a forma de pagamento:{" "}
+      <Grid item sm={12} marginLeft="1rem" marginRight="1rem">
+        <Typography fontSize="1.2rem" color={SECONDARY} fontWeight="700">
+          Selecione a forma de pagamento:
         </Typography>
         <FormControl component="fieldset">
           <RadioGroup
@@ -209,15 +258,14 @@ const Pagamento: FC<PagamentoProps> = ({
             />
           </RadioGroup>
         </FormControl>
+        {formaPagamentoSelecionada === formaDePagamento.pix.codigo && (
+          <CardInformativo
+            mensagem={
+              "solariius@gmail.com  OU gabrielbbmatozinhos@gmail.com OU cminoves26@gmail.com"
+            }
+          />
+        )}
       </Grid>
-      {formaPagamentoSelecionada === formaDePagamento.pix.codigo && (
-        <CardInformativo
-          mensagem={
-            "solariius@gmail.com  OU gabrielbbmatozinhos@gmail.com OU cminoves26@gmail.com"
-          }
-        />
-      )}
-
       {(formaPagamentoSelecionada === formaDePagamento.credito.codigo ||
         formaPagamentoSelecionada === formaDePagamento.debito.codigo) && (
         <CardInformativo
@@ -226,7 +274,17 @@ const Pagamento: FC<PagamentoProps> = ({
           }
         />
       )}
-      <Grid item>
+      <Grid
+        container
+        item
+        sm={12}
+        direction="row"
+        alignItems="center"
+        justifyContent="flex-end"
+        marginRight="1rem"
+        marginBottom="1rem"
+        marginTop="1rem"
+      >
         <Button
           sx={{ color: "black", backgroundColor: SECONDARY, width: "150px" }}
         >
