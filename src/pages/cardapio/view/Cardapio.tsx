@@ -1,17 +1,21 @@
-// cada refeicao é um cardItem, tem engrenagem que faz
-// ir pra tela de edição e carrinho que faz ir pra tela de pagamento
 import { Edit } from "@mui/icons-material";
-import { Button, Grid } from "@mui/material";
+import { Button, Grid, Typography } from "@mui/material";
 import { FC, MouseEventHandler, useEffect, useState } from "react";
 import { PRIMARY, SECONDARY } from "../../../config/theme";
+import { usePedidoContexto } from "../../../context/globalContext";
 import Repository from "../../../repositories/Repository";
 import { IRefeicao } from "../../../Shared/interfaces/IRefeicao";
 import CardItem from "../components/CardItem";
 
+// sempre q quiser mudar algo no pedido da setPedido e pronto
+// setPedido({...pedido, nomeCliente}) -> isso aqui atualiza o nome do cliente
+
 const Cardapio: FC = () => {
+  const { pedido, setPedido } = usePedidoContexto();
   const [itemCardapio, setItemCardapio] = useState<IRefeicao[]>();
   useEffect(() => {
     setItemCardapio(Repository.listarCardapio());
+    console.log(pedido);
   }, []);
   const onClickPagar: MouseEventHandler<HTMLButtonElement> = () => {
     console.log("TELA PAGAMENTO");
@@ -24,13 +28,35 @@ const Cardapio: FC = () => {
       sx={{ minWidth: "100vh", minHeight: "100vh", backgroundColor: PRIMARY }}
     >
       <Grid
+        container
         item
-        justifyContent="right"
-        sx={{ marginRight: "20px", marginTop: "20px" }}
+        justifyContent="center"
+        marginTop="2rem"
+        marginBottom="2rem"
+        alignItems="center"
       >
-        <Edit sx={{ color: SECONDARY }}></Edit>
+        <Grid item>
+          <img
+            src="logoVeggie2world.png"
+            alt="Logo veggie to world"
+            width="48px"
+            height="48px"
+          />
+        </Grid>
+        <Grid item>
+          <Typography
+            fontWeight="700"
+            fontSize="1.5rem"
+            marginLeft="1rem"
+            sx={{ color: SECONDARY }}
+          >
+            Cardápio Veggie2World
+          </Typography>
+        </Grid>
+        <Grid item marginLeft="2rem">
+          <Edit sx={{ color: SECONDARY }}></Edit>
+        </Grid>
       </Grid>
-      <Grid item>  <img src="logoVeggie2world.png" alt="" height="50px" width="50px" /></Grid>
       <Grid
         container
         direction="column"

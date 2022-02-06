@@ -35,9 +35,10 @@ const Edicao: FC = () => {
     () => setModalEditarAberto(false),
     []
   );
-  const handleConfirmarModalInserir = useCallback(() => {
+  const handleConfirmarModalInserir = useCallback((enviarDados) => {
     setModalInserirAberto(false);
     console.log("INSERE");
+    console.log(enviarDados);
   }, []);
 
   const handleConfirmarModalRemover = useCallback(() => {

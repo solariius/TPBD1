@@ -1,6 +1,12 @@
-import { Grid } from "@mui/material";
-import { FC } from "react";
-import { SECONDARY } from "../../../config/theme";
+import { SelectChangeEvent } from "@mui/material";
+import { Select } from "@mui/material";
+import { InputLabel } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
+import { FC, useState } from "react";
+import { PRIMARY, SECONDARY } from "../../../config/theme";
+interface IDados {
+  quantidade?: number;
+}
 interface ICardapioProps {
   nomeRefeicao: string;
   valor: number;
@@ -15,6 +21,8 @@ const CardItem: FC<ICardapioProps> = ({
   quantidadeRefeicao,
   calorias,
 }) => {
+  const [enviarDados, setEnviarDados] = useState<IDados>();
+
   return (
     <Grid
       container
@@ -26,6 +34,9 @@ const CardItem: FC<ICardapioProps> = ({
         width: "900px",
         paddingBottom: "16px",
         paddingLeft: "16px",
+        fontWeight: "500",
+        fontSize: "1.5rem",
+        color: PRIMARY,
       }}
     >
       <Grid item xs={8}>
@@ -41,7 +52,18 @@ const CardItem: FC<ICardapioProps> = ({
         {descricaoRefeicao}
       </Grid>
       <Grid item xs={2}>
-        {quantidadeRefeicao}
+        <InputLabel id="quantidade-label">quantidade</InputLabel>
+        <Select
+          id="quantidade"
+          labelId="quantidade-label"
+          label="quantidade"
+          value={""}
+          variant="outlined"
+          onChange={(event: SelectChangeEvent<string>) => {
+            const quantidade = parseInt(event.target.value);
+            if (event) setEnviarDados({ ...enviarDados, quantidade });
+          }}
+        />
       </Grid>
     </Grid>
   );

@@ -1,22 +1,22 @@
-import {
-  Grid,
-  Select,
-  SelectChangeEvent,
-  TextField,
-  Typography,
-} from "@mui/material";
-import { FC } from "react";
+import { Grid, Select, SelectChangeEvent, TextField } from "@mui/material";
+import { ChangeEvent, FC, useState } from "react";
 import Modal from "../../../Shared/Modal/Modal";
 
+interface IDados {
+  item?: string;
+  descricao?: string;
+  valor?: number;
+  calorias?: number;
+  idRefeicao?: number;
+}
 interface IModalEditarProps {
   modalEditarAberto: boolean;
   handleFecharModalEditar: () => void;
   handleConfirmarModalEditar: () => void;
-  refItem: React.Ref<HTMLInputElement>;
-  refDescricao: React.Ref<HTMLInputElement>;
-  refValor: React.Ref<HTMLInputElement>;
-  refCalorias: React.Ref<HTMLInputElement>;
-  onChangeRefeicao: (codigo: SelectChangeEvent<string>) => void;
+  refItem?: React.Ref<HTMLInputElement>;
+  refDescricao?: React.Ref<HTMLInputElement>;
+  refValor?: React.Ref<HTMLInputElement>;
+  refCalorias?: React.Ref<HTMLInputElement>;
 }
 
 const ModalEditar: FC<IModalEditarProps> = ({
@@ -27,9 +27,8 @@ const ModalEditar: FC<IModalEditarProps> = ({
   refDescricao,
   refValor,
   refCalorias,
-  onChangeRefeicao,
 }) => {
-  // recebe um node select para procurar o item e pode editar valor titulo e descrição
+  const [enviarDados, setEnviarDados] = useState<IDados>();
   return (
     <Modal
       modalAberto={modalEditarAberto}
@@ -52,9 +51,13 @@ const ModalEditar: FC<IModalEditarProps> = ({
             <Select
               id="refeicao"
               labelId="refeicao-label"
+              label="Selecione a refeição"
               value={""}
               variant="outlined"
-              onChange={onChangeRefeicao}
+              onChange={(event: SelectChangeEvent<string>) => {
+                const idRefeicao = parseInt(event.target.value);
+                if (event) setEnviarDados({ ...enviarDados, idRefeicao });
+              }}
               inputRef={refItem}
             />
           </Grid>
@@ -64,7 +67,11 @@ const ModalEditar: FC<IModalEditarProps> = ({
               variant="outlined"
               fullWidth
               inputProps={{
-                maxLength: 250,
+                maxLength: 50,
+              }}
+              onChange={(event: ChangeEvent<HTMLTextAreaElement>) => {
+                const item = event.target.value;
+                if (event) setEnviarDados({ ...enviarDados, item });
               }}
               inputRef={refItem}
             />
@@ -75,7 +82,11 @@ const ModalEditar: FC<IModalEditarProps> = ({
               variant="outlined"
               fullWidth
               inputProps={{
-                maxLength: 250,
+                maxLength: 150,
+              }}
+              onChange={(event: ChangeEvent<HTMLTextAreaElement>) => {
+                const descricao = event.target.value;
+                if (event) setEnviarDados({ ...enviarDados, descricao });
               }}
               inputRef={refDescricao}
             />
@@ -85,8 +96,13 @@ const ModalEditar: FC<IModalEditarProps> = ({
               label="Valor"
               variant="outlined"
               fullWidth
+              type="number"
               inputProps={{
-                maxLength: 250,
+                maxLength: 5,
+              }}
+              onChange={(event: ChangeEvent<HTMLTextAreaElement>) => {
+                const valor = parseInt(event.target.value);
+                if (event) setEnviarDados({ ...enviarDados, valor });
               }}
               inputRef={refValor}
             />
@@ -96,8 +112,13 @@ const ModalEditar: FC<IModalEditarProps> = ({
               label="Calorias"
               variant="outlined"
               fullWidth
+              type="number"
               inputProps={{
-                maxLength: 250,
+                maxLength: 4,
+              }}
+              onChange={(event: ChangeEvent<HTMLTextAreaElement>) => {
+                const calorias = parseInt(event.target.value);
+                if (event) setEnviarDados({ ...enviarDados, calorias });
               }}
               inputRef={refCalorias}
             />

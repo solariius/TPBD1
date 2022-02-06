@@ -19,12 +19,12 @@ import CardInformativo from "../../../Shared/cardInformativo/CardInformativo";
 import { formaDePagamento } from "../../../Shared/constantes/Constantes";
 
 interface PagamentoProps {
-  refNomeCliente: React.Ref<HTMLInputElement>;
-  refCPF: React.Ref<HTMLInputElement>;
-  refCEP: React.Ref<HTMLInputElement>;
-  refLogradouro: React.Ref<HTMLInputElement>;
-  refNumero: React.Ref<HTMLInputElement>;
-  refComplemento: React.Ref<HTMLInputElement>;
+  refNomeCliente?: React.Ref<HTMLInputElement>;
+  refCPF?: React.Ref<HTMLInputElement>;
+  refCEP?: React.Ref<HTMLInputElement>;
+  refLogradouro?: React.Ref<HTMLInputElement>;
+  refNumero?: React.Ref<HTMLInputElement>;
+  refComplemento?: React.Ref<HTMLInputElement>;
 }
 const Pagamento: FC<PagamentoProps> = ({
   refNomeCliente,

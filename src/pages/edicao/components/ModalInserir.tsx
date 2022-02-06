@@ -1,17 +1,23 @@
 //criar um erro para pratos com o mesmo nome.
 
 import { Grid, TextField } from "@mui/material";
-import { FC } from "react";
+import React, { ChangeEvent, FC, useState } from "react";
 import Modal from "../../../Shared/Modal/Modal";
 
 interface IModalInserirProps {
   modalInserirAberto: boolean;
   handleFecharModalInserir: () => void;
-  handleConfirmarModalInserir: () => void;
-  refItem: React.Ref<HTMLInputElement>;
-  refDescricao: React.Ref<HTMLInputElement>;
-  refValor: React.Ref<HTMLInputElement>;
-  refCalorias: React.Ref<HTMLInputElement>;
+  handleConfirmarModalInserir: (enviarDados: IDados | undefined) => void;
+  refItem?: React.Ref<HTMLInputElement>;
+  refDescricao?: React.Ref<HTMLInputElement>;
+  refValor?: React.Ref<HTMLInputElement>;
+  refCalorias?: React.Ref<HTMLInputElement>;
+}
+interface IDados {
+  item?: string;
+  descricao?: string;
+  valor?: number;
+  calorias?: number;
 }
 
 const ModalInserir: FC<IModalInserirProps> = ({
@@ -23,13 +29,16 @@ const ModalInserir: FC<IModalInserirProps> = ({
   refValor,
   refCalorias,
 }) => {
-  // recebe um node com 3 inputs (titulo, descrição e preço)
+  const [enviarDados, setEnviarDados] = useState<IDados>();
+
   return (
     <Modal
       tituloModal="Inserir prato no cardápio"
       modalAberto={modalInserirAberto}
       handleFecharModal={handleFecharModalInserir}
-      handleConfirmarModal={handleConfirmarModalInserir}
+      handleConfirmarModal={() => {
+        handleConfirmarModalInserir(enviarDados);
+      }}
       textoBotaoPrincipal="Inserir"
       textoBotaoSecundario="Cancelar"
       confirmacao={true}
@@ -48,9 +57,13 @@ const ModalInserir: FC<IModalInserirProps> = ({
               variant="outlined"
               fullWidth
               inputProps={{
-                maxLength: 250,
+                maxLength: 50,
               }}
               inputRef={refItem}
+              onChange={(event: ChangeEvent<HTMLTextAreaElement>) => {
+                const item = event.target.value;
+                if (event) setEnviarDados({ ...enviarDados, item });
+              }}
             />
           </Grid>
           <Grid item>
@@ -59,9 +72,13 @@ const ModalInserir: FC<IModalInserirProps> = ({
               variant="outlined"
               fullWidth
               inputProps={{
-                maxLength: 250,
+                maxLength: 150,
               }}
               inputRef={refDescricao}
+              onChange={(event: ChangeEvent<HTMLTextAreaElement>) => {
+                const descricao = event.target.value;
+                if (event) setEnviarDados({ ...enviarDados, descricao });
+              }}
             />
           </Grid>
           <Grid item>
@@ -70,9 +87,14 @@ const ModalInserir: FC<IModalInserirProps> = ({
               variant="outlined"
               fullWidth
               inputProps={{
-                maxLength: 250,
+                maxLength: 5,
               }}
+              type="number"
               inputRef={refValor}
+              onChange={(event: ChangeEvent<HTMLTextAreaElement>) => {
+                const valor = parseInt(event.target.value);
+                if (event) setEnviarDados({ ...enviarDados, valor });
+              }}
             />
           </Grid>
           <Grid item>
@@ -81,9 +103,14 @@ const ModalInserir: FC<IModalInserirProps> = ({
               variant="outlined"
               fullWidth
               inputProps={{
-                maxLength: 250,
+                maxLength: 4,
               }}
+              type="number"
               inputRef={refCalorias}
+              onChange={(event: ChangeEvent<HTMLTextAreaElement>) => {
+                const calorias = parseInt(event.target.value);
+                if (event) setEnviarDados({ ...enviarDados, calorias });
+              }}
             />
           </Grid>
         </Grid>

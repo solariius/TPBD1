@@ -1,31 +1,17 @@
-import React, { MouseEventHandler, useCallback, useState } from "react";
-import logo from "./logo.svg";
+import { useState } from "react";
 import "./App.css";
-import ModalRemover from "./pages/edicao/components/ModalRemover";
-import { Button } from "@mui/material";
+import { PedidoContexto } from "./context/globalContext";
+import Cardapio from "./pages/cardapio/view/Cardapio";
+import Edicao from "./pages/edicao/view/Edicao";
+import Pagamento from "./pages/pagamento/view/Pagamento";
+import { IPedidoCompleto } from "./Shared/interfaces/IPedidoCompleto";
 
 function App() {
-  const [modalAberto, setModalAberto] = useState(false);
-  const handleFecharModal = useCallback(() => setModalAberto(false), []);
-
-  const handleConfirmarModal = useCallback(() => {
-    setModalAberto(false);
-    console.log("CONFIRMA");
-  }, []);
-
-  const onClickModal: MouseEventHandler<HTMLButtonElement> = () => {
-    setModalAberto(true);
-  };
+  const [pedido, setPedido] = useState<IPedidoCompleto>();
   return (
-    <div className="App">
-      <Button onClick={onClickModal}>clique</Button>
-
-      <ModalRemover
-        modalAberto={modalAberto}
-        handleFecharModal={handleFecharModal}
-        handleConfirmarModal={handleConfirmarModal}
-      />
-    </div>
+    <PedidoContexto.Provider value={{ pedido, setPedido }}>
+      <Cardapio />
+    </PedidoContexto.Provider>
   );
 }
 

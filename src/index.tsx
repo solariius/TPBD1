@@ -1,16 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import Pagamento from "./pages/pagamento/view/Pagamento";
 import reportWebVitals from "./reportWebVitals";
 
-import Cardapio from "./pages/cardapio/view/Cardapio";
-import Edicao from "./pages/edicao/view/Edicao";
-// import App from "./App";
+import App from "./App";
 
 ReactDOM.render(
   <React.StrictMode>
-    <Pagamento />
+    <App />
   </React.StrictMode>,
   document.getElementById("root")
 );

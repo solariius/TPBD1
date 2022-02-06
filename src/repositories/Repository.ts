@@ -1,5 +1,6 @@
 // aqui que fica as chamadas as apis
 
+import axios from "axios";
 import { IPedidoCompleto } from "../Shared/interfaces/IPedidoCompleto";
 import { IRefeicao } from "../Shared/interfaces/IRefeicao";
 
@@ -32,6 +33,7 @@ class Repository {
       },
     ];
   }
+
   listarPedidos(): IPedidoCompleto[] {
     return [
       {
@@ -56,12 +58,31 @@ class Repository {
             quantidadeRefeicao: 1,
             calorias: 450,
           },
+          {
+            idRefeicao: 2,
+            nomeRefeicao: "aiai",
+            descricaoRefeicao: "gostosa",
+            valorRefeicao: 40,
+            quantidadeRefeicao: 1,
+            calorias: 440,
+          },
+          {
+            idRefeicao: 3,
+            nomeRefeicao: "dsf",
+            descricaoRefeicao: "gostosa",
+            valorRefeicao: 32,
+            quantidadeRefeicao: 1,
+            calorias: 20,
+          },
         ],
         idFormaPagamento: 1,
       },
     ];
   }
+
   inserirItemCardapio(item: IRefeicao) {
+    //mudar essa string de acordo com o back
+    // axios.post("http://localhost:3333/add", item);
     console.log("item adicionado com sucesso", item);
   }
   removerItemCardapio(item: IRefeicao) {
