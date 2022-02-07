@@ -70,7 +70,7 @@ const Pagamento: FC<PagamentoProps> = ({
         <Grid item>
           <img src="logoVeggie2world.png" alt="" width="48px" height="48px" />
         </Grid>
-        <Grid item>
+        <Grid item marginLeft="1rem">
           <Typography
             fontWeight="700"
             fontSize="1.2rem"
