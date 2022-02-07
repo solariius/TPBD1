@@ -15,9 +15,15 @@ const Cardapio: FC = () => {
   const [itemCardapio, setItemCardapio] = useState<IRefeicao[]>();
   useEffect(() => {
     setItemCardapio(Repository.listarCardapio());
-    console.log(pedido);
+    if (setPedido)
+      setPedido({
+        ...pedido,
+        refeicao: [...Repository.listarCardapio()],
+      });
   }, []);
+
   const onClickPagar: MouseEventHandler<HTMLButtonElement> = () => {
+    console.log(pedido);
     console.log("TELA PAGAMENTO");
   };
 
@@ -64,11 +70,12 @@ const Cardapio: FC = () => {
         alignItems="center"
         rowSpacing={4}
       >
-        {itemCardapio?.length &&
-          itemCardapio.map((item) => (
+        {pedido?.refeicao?.length &&
+          pedido.refeicao.map((item) => (
             <Grid item>
               <CardItem
                 key={item.idRefeicao}
+                id={item.idRefeicao}
                 nomeRefeicao={item.nomeRefeicao}
                 valor={item.valorRefeicao}
                 descricaoRefeicao={item.descricaoRefeicao}

@@ -91,6 +91,9 @@ class Repository {
   editarItemCardapio(item: IRefeicao) {
     console.log("item editado com sucesso", item);
   }
+  enviarPedido(pedido: IPedidoCompleto) {
+    console.log("pedido enviad", pedido);
+  }
 }
 
 export default new Repository();

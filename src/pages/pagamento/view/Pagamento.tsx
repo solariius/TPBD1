@@ -13,8 +13,10 @@ import {
   Button,
   TextField,
 } from "@mui/material";
-import { FC, useState } from "react";
+import { ChangeEvent, FC, useState } from "react";
+import { isTemplateExpression } from "typescript";
 import { PRIMARY, SECONDARY, SECONDARY2 } from "../../../config/theme";
+import { usePedidoContexto } from "../../../context/globalContext";
 import CardInformativo from "../../../Shared/cardInformativo/CardInformativo";
 import { formaDePagamento } from "../../../Shared/constantes/Constantes";
 
@@ -40,6 +42,17 @@ const Pagamento: FC<PagamentoProps> = ({
   const handleTipoPagamento = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFormaPagamentoSelecionada(parseInt(event.target.value));
   };
+
+  const { nome, setNome } = useState("");
+  const { cpf, setCpf } = useState(0);
+  const { endereco, setEndereco } = useState({
+    cep: 32315040,
+    logradouro: "",
+    numero: 0,
+    complemento: "apto 00",
+  });
+
+  const { pedido, setPedido } = usePedidoContexto();
 
   return (
     <Grid
@@ -93,6 +106,10 @@ const Pagamento: FC<PagamentoProps> = ({
             inputProps={{
               maxLength: 50,
             }}
+            onChange={(event: ChangeEvent<HTMLTextAreaElement>) => {
+              const nome = event.target.value;
+              if (nome) setNome(nome);
+            }}
             inputRef={refNomeCliente}
           />
           <Grid item>
@@ -102,6 +119,10 @@ const Pagamento: FC<PagamentoProps> = ({
               fullWidth
               inputProps={{
                 maxLength: 11,
+              }}
+              onChange={(event: ChangeEvent<HTMLTextAreaElement>) => {
+                const cpf = event.target.value;
+                if (cpf) setCpf(cpf);
               }}
               inputRef={refCPF}
             />
@@ -133,6 +154,10 @@ const Pagamento: FC<PagamentoProps> = ({
             inputProps={{
               maxLength: 8,
             }}
+            onChange={(event: ChangeEvent<HTMLTextAreaElement>) => {
+              const cep = event.target.value;
+              if (cep) setEndereco({ ...endereco, cep });
+            }}
             inputRef={refCEP}
           />
         </Grid>
@@ -143,6 +168,10 @@ const Pagamento: FC<PagamentoProps> = ({
             fullWidth
             inputProps={{
               maxLength: 100,
+            }}
+            onChange={(event: ChangeEvent<HTMLTextAreaElement>) => {
+              const logradouro = event.target.value;
+              if (logradouro) setEndereco({ ...endereco, logradouro });
             }}
             inputRef={refLogradouro}
           />
@@ -155,6 +184,10 @@ const Pagamento: FC<PagamentoProps> = ({
             inputProps={{
               maxLength: 4,
             }}
+            onChange={(event: ChangeEvent<HTMLTextAreaElement>) => {
+              const numero = event.target.value;
+              if (numero) setEndereco({ ...endereco, numero });
+            }}
             inputRef={refNumero}
           />
         </Grid>
@@ -165,6 +198,10 @@ const Pagamento: FC<PagamentoProps> = ({
             fullWidth
             inputProps={{
               maxLength: 10,
+            }}
+            onChange={(event: ChangeEvent<HTMLTextAreaElement>) => {
+              const complemento = event.target.value;
+              if (complemento) setEndereco({ ...endereco, complemento });
             }}
             inputRef={refComplemento}
           />
@@ -185,9 +222,13 @@ const Pagamento: FC<PagamentoProps> = ({
           paddingLeft: "16px",
         }}
       >
-        <Typography>
-          INFORMAÇÕES DO PEDIDO VALOR TOTAL COM A LISTA DE TODOS OS ITENS
-        </Typography>
+        {pedido?.refeicao.map((item) => (
+          <>
+            <Grid item>{item.nomeRefeicao}</Grid>
+            <Grid item>{item.quantidadeRefeicao}</Grid>
+            <Grid item>{item.valorRefeicao}</Grid>
+          </>
+        ))}
       </Grid>
       <Grid item sm={12} marginLeft="1rem" marginRight="1rem">
         <Typography fontSize="1.2rem" color={SECONDARY} fontWeight="700">
@@ -265,15 +306,16 @@ const Pagamento: FC<PagamentoProps> = ({
             }
           />
         )}
+
+        {(formaPagamentoSelecionada === formaDePagamento.credito.codigo ||
+          formaPagamentoSelecionada === formaDePagamento.debito.codigo) && (
+          <CardInformativo
+            mensagem={
+              "O entregador levará a máquina de cartão para a realização do pagamento."
+            }
+          />
+        )}
       </Grid>
-      {(formaPagamentoSelecionada === formaDePagamento.credito.codigo ||
-        formaPagamentoSelecionada === formaDePagamento.debito.codigo) && (
-        <CardInformativo
-          mensagem={
-            "O entregador levará a máquina de cartão para a realização do pagamento."
-          }
-        />
-      )}
       <Grid
         container
         item

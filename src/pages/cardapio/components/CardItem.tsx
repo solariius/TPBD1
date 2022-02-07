@@ -1,18 +1,19 @@
 import { SelectChangeEvent } from "@mui/material";
 import { Select } from "@mui/material";
+import { TextField } from "@mui/material";
 import { InputLabel } from "@mui/material";
 import { Grid, Typography } from "@mui/material";
-import { FC, useState } from "react";
+import { ChangeEvent, FC, useState } from "react";
 import { PRIMARY, SECONDARY } from "../../../config/theme";
-interface IDados {
-  quantidade?: number;
-}
+import { usePedidoContexto } from "../../../context/globalContext";
+
 interface ICardapioProps {
   nomeRefeicao: string;
   valor: number;
   descricaoRefeicao: string;
   quantidadeRefeicao: number;
   calorias: number;
+  id: number;
 }
 const CardItem: FC<ICardapioProps> = ({
   nomeRefeicao,
@@ -20,9 +21,9 @@ const CardItem: FC<ICardapioProps> = ({
   descricaoRefeicao,
   quantidadeRefeicao,
   calorias,
+  id,
 }) => {
-  const [enviarDados, setEnviarDados] = useState<IDados>();
-
+  const { pedido, setPedido } = usePedidoContexto();
   return (
     <Grid
       container
@@ -52,16 +53,27 @@ const CardItem: FC<ICardapioProps> = ({
         {descricaoRefeicao}
       </Grid>
       <Grid item xs={2}>
-        <InputLabel id="quantidade-label">quantidade</InputLabel>
-        <Select
-          id="quantidade"
-          labelId="quantidade-label"
+        <TextField
           label="quantidade"
-          value={""}
           variant="outlined"
-          onChange={(event: SelectChangeEvent<string>) => {
+          sx={{ maxWidth: "90%" }}
+          inputProps={{
+            maxLength: 4,
+          }}
+          type="number"
+          onChange={(event: ChangeEvent<HTMLTextAreaElement>) => {
             const quantidade = parseInt(event.target.value);
-            if (event) setEnviarDados({ ...enviarDados, quantidade });
+            const novasRefeicoes =
+              pedido?.refeicao?.length &&
+              pedido.refeicao.map((refeicao) => {
+                if (refeicao.idRefeicao === id)
+                  return { ...refeicao, quantidadeRefeicao: quantidade };
+                else return refeicao;
+              });
+            setPedido({
+              ...pedido,
+              refeicao: novasRefeicoes,
+            });
           }}
         />
       </Grid>

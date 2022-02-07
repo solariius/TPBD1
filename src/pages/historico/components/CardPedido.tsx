@@ -37,25 +37,25 @@ const CardPedido: FC<PedidoProps> = (nomeCliente, cpfCliente) => {
       </Grid>
 
       {itemPedido?.length &&
-        itemPedido.map((item) => (
-          <Grid container item>
-            <Grid item xs={4}>
-              {item.nomeRefeicao}
-            </Grid>
-            <Grid item xs={2}>
-              {item.calorias}
-            </Grid>
-            <Grid item xs={2}>
-              {item.valorRefeicao}
-            </Grid>
-            <Grid item xs={2}>
-              {item.quantidadeRefeicao}
-            </Grid>
-            <Grid item xs={12}>
-              {item.descricaoRefeicao}
-            </Grid>
-          </Grid>
-        ))}
+        itemPedido.map((item) => {
+          item.refeicao.length &&
+            item.refeicao.map((refeicao) => (
+              <Grid container item>
+                <Grid item xs={6}>
+                  {refeicao.nomeRefeicao}
+                </Grid>
+                <Grid item xs={2}>
+                  {refeicao.calorias}
+                </Grid>
+                <Grid item xs={2}>
+                  {refeicao.nomeRefeicao}
+                </Grid>
+                <Grid item xs={2}>
+                  {refeicao.quantidadeRefeicao}
+                </Grid>
+              </Grid>
+            ));
+        })}
     </Grid>
   );
 };

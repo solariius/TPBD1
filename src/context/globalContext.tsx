@@ -2,7 +2,7 @@ import React, { Dispatch, SetStateAction, useContext } from "react";
 import { IPedidoCompleto } from "../Shared/interfaces/IPedidoCompleto";
 
 interface IPedidoContexto {
-  setPedido?: Dispatch<SetStateAction<IPedidoCompleto | undefined>>;
+  setPedido: Dispatch<SetStateAction<any>>;
   pedido?: IPedidoCompleto;
 }
 
