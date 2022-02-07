@@ -84,7 +84,6 @@ const Pagamento: FC<PagamentoProps> = ({
       <Grid
         container
         item
-        justifyContent="space-between"
         marginBottom="24px"
         marginLeft="1rem"
         marginRight="1rem"
@@ -98,11 +97,10 @@ const Pagamento: FC<PagamentoProps> = ({
             Dados Cliente
           </Typography>
         </Grid>
-        <Grid item>
+        <Grid item xs={3.3}>
           <TextField
             label="Nome"
             variant="outlined"
-            fullWidth
             inputProps={{
               maxLength: 50,
             }}
@@ -112,21 +110,20 @@ const Pagamento: FC<PagamentoProps> = ({
             }}
             inputRef={refNomeCliente}
           />
-          <Grid item>
-            <TextField
-              label="CPF"
-              variant="outlined"
-              fullWidth
-              inputProps={{
-                maxLength: 11,
-              }}
-              onChange={(event: ChangeEvent<HTMLTextAreaElement>) => {
-                const cpf = event.target.value;
-                if (cpf) setCpf(cpf);
-              }}
-              inputRef={refCPF}
-            />
-          </Grid>
+        </Grid>
+        <Grid item>
+          <TextField
+            label="CPF"
+            variant="outlined"
+            inputProps={{
+              maxLength: 11,
+            }}
+            onChange={(event: ChangeEvent<HTMLTextAreaElement>) => {
+              const cpf = event.target.value;
+              if (cpf) setCpf(cpf);
+            }}
+            inputRef={refCPF}
+          />
         </Grid>
       </Grid>
       <Grid
