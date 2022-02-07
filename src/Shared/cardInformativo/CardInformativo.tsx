@@ -1,6 +1,5 @@
+import { Alert, Stack } from "@mui/material";
 import { FC } from "react";
-import Alert from "@mui/material/Alert";
-import Stack from "@mui/material/Stack";
 import { PRIMARY, SECONDARY } from "../../config/theme";
 
 interface CardInformativoProps {

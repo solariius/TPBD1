@@ -1,5 +1,3 @@
-// 4 botoes (inserir,remover,editar e voltar para cardápio)
-
 import { Button, Grid, Typography } from "@mui/material";
 import { FC, MouseEventHandler, useCallback, useState } from "react";
 import { PRIMARY, SECONDARY } from "../../../config/theme";

@@ -1,5 +1,5 @@
 import { Grid, Select, SelectChangeEvent } from "@mui/material";
-import { ChangeEvent, FC, useState } from "react";
+import { FC, useState } from "react";
 import Modal from "../../../Shared/Modal/Modal";
 
 interface IDados {
@@ -9,8 +9,7 @@ interface IModalRemoverProps {
   modalAberto: boolean;
   handleFecharModal: () => void;
   handleConfirmarModal: () => void;
-  refItem: React.Ref<HTMLInputElement>;
-  onChangeRefeicao: (codigo: SelectChangeEvent<string>) => void;
+  refItem?: React.Ref<HTMLInputElement>;
 }
 
 const ModalRemover: FC<IModalRemoverProps> = ({
@@ -18,7 +17,6 @@ const ModalRemover: FC<IModalRemoverProps> = ({
   handleFecharModal,
   handleConfirmarModal,
   refItem,
-  onChangeRefeicao,
 }) => {
   const [enviarDados, setEnviarDados] = useState<IDados>();
   return (
@@ -37,7 +35,7 @@ const ModalRemover: FC<IModalRemoverProps> = ({
             labelId="refeicao-label"
             value={""}
             variant="outlined"
-            onChange={(event: ChangeEvent<HTMLTextAreaElement>) => {
+            onChange={(event: SelectChangeEvent<string>) => {
               const idRefeicao = parseInt(event.target.value);
               if (event) setEnviarDados({ ...enviarDados, idRefeicao });
             }}

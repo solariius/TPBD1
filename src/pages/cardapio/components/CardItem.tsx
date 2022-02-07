@@ -1,9 +1,5 @@
-import { SelectChangeEvent } from "@mui/material";
-import { Select } from "@mui/material";
-import { TextField } from "@mui/material";
-import { InputLabel } from "@mui/material";
-import { Grid, Typography } from "@mui/material";
-import { ChangeEvent, FC, useState } from "react";
+import { Grid, TextField } from "@mui/material";
+import { ChangeEvent, FC } from "react";
 import { PRIMARY, SECONDARY } from "../../../config/theme";
 import { usePedidoContexto } from "../../../context/globalContext";
 import { formatarCalorias, formatarMoeda } from "../../../Shared/Utils";
