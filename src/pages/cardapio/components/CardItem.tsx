@@ -6,6 +6,7 @@ import { Grid, Typography } from "@mui/material";
 import { ChangeEvent, FC, useState } from "react";
 import { PRIMARY, SECONDARY } from "../../../config/theme";
 import { usePedidoContexto } from "../../../context/globalContext";
+import { formatarCalorias, formatarMoeda } from "../../../Shared/Utils";
 
 interface ICardapioProps {
   nomeRefeicao: string;
@@ -44,10 +45,10 @@ const CardItem: FC<ICardapioProps> = ({
         {nomeRefeicao}
       </Grid>
       <Grid item xs={2}>
-        {calorias}
+        {formatarCalorias(calorias)}
       </Grid>
       <Grid item xs={2}>
-        {valor}
+        {formatarMoeda(valor)}
       </Grid>
       <Grid item xs={10}>
         {descricaoRefeicao}
