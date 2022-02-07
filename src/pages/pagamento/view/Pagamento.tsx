@@ -14,11 +14,11 @@ import {
   TextField,
 } from "@mui/material";
 import { ChangeEvent, FC, useState } from "react";
-import { isTemplateExpression } from "typescript";
 import { PRIMARY, SECONDARY, SECONDARY2 } from "../../../config/theme";
 import { usePedidoContexto } from "../../../context/globalContext";
 import CardInformativo from "../../../Shared/cardInformativo/CardInformativo";
 import { formaDePagamento } from "../../../Shared/constantes/Constantes";
+import { formatarMoeda } from "../../../Shared/Utils";
 
 interface PagamentoProps {
   refNomeCliente?: React.Ref<HTMLInputElement>;
@@ -223,14 +223,27 @@ const Pagamento: FC<PagamentoProps> = ({
         }}
       >
         {pedido?.refeicao.map((item) => (
-          <>
-            <Grid item>{item.nomeRefeicao}</Grid>
-            <Grid item>{item.quantidadeRefeicao}</Grid>
-            <Grid item>{item.valorRefeicao}</Grid>
-          </>
+          <Grid
+            container
+            sx={{
+              fontWeight: "500",
+              fontSize: "1.5rem",
+              color: PRIMARY,
+            }}
+          >
+            <Grid item xs={6}>
+              {item.nomeRefeicao}
+            </Grid>
+            <Grid item xs={3}>
+              {item.quantidadeRefeicao}
+            </Grid>
+            <Grid item xs={3}>
+              {formatarMoeda(item.valorRefeicao)}
+            </Grid>
+          </Grid>
         ))}
       </Grid>
-      <Grid item sm={12} marginLeft="1rem" marginRight="1rem">
+      <Grid item sm={12} marginLeft="1rem" marginRight="1rem" marginTop="1rem">
         <Typography fontSize="1.2rem" color={SECONDARY} fontWeight="700">
           Selecione a forma de pagamento:
         </Typography>

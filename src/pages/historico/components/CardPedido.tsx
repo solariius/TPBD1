@@ -3,6 +3,7 @@ import { FC, useEffect, useState } from "react";
 import { SECONDARY } from "../../../config/theme";
 import Repository from "../../../repositories/Repository";
 import { IPedidoCompleto } from "../../../Shared/interfaces/IPedidoCompleto";
+import { formatarCalorias, formatarMoeda } from "../../../Shared/Utils";
 
 interface PedidoProps {
   nomeCliente: string;
@@ -45,10 +46,10 @@ const CardPedido: FC<PedidoProps> = (nomeCliente, cpfCliente) => {
                   {refeicao.nomeRefeicao}
                 </Grid>
                 <Grid item xs={2}>
-                  {refeicao.calorias}
+                  {formatarCalorias(refeicao.calorias)}
                 </Grid>
                 <Grid item xs={2}>
-                  {refeicao.nomeRefeicao}
+                  {formatarMoeda(refeicao.valorRefeicao)}
                 </Grid>
                 <Grid item xs={2}>
                   {refeicao.quantidadeRefeicao}

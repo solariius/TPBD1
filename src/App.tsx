@@ -11,7 +11,7 @@ function App() {
   const [pedido, setPedido] = useState<IPedidoCompleto>();
   return (
     <PedidoContexto.Provider value={{ pedido, setPedido }}>
-      <Cardapio />
+      <Pagamento />
     </PedidoContexto.Provider>
   );
 }

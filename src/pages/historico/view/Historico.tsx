@@ -9,6 +9,7 @@ const Historico: FC = () => {
   useEffect(() => {
     setPedido(Repository.listarPedidos());
   }, []);
+  
   return (
     {pedido.length &&
         pedido.map((pedido) => 
