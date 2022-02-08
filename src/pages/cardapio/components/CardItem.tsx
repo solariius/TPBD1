@@ -57,6 +57,7 @@ const CardItem: FC<ICardapioProps> = ({
           inputProps={{
             maxLength: 4,
           }}
+          defaultValue="0"
           type="number"
           onChange={(event: ChangeEvent<HTMLTextAreaElement>) => {
             const quantidade = parseInt(event.target.value);

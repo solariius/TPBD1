@@ -2,6 +2,6 @@ import { IEndereco } from "./IEndereco";
 
 export interface ICliente {
   nome: string;
-  cpf: number;
+  cpf?: number;
   endereco: IEndereco;
 }

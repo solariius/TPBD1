@@ -1,10 +1,12 @@
 import { Button, Grid, Typography } from "@mui/material";
 import { FC, MouseEventHandler, useCallback, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { PRIMARY, SECONDARY } from "../../../config/theme";
 import ModalEditar from "../components/ModalEditar";
 import ModalInserir from "../components/ModalInserir";
 import ModalRemover from "../components/ModalRemover";
 const Edicao: FC = () => {
+  const navegar = useNavigate();
   const [modalInserirAberto, setModalInserirAberto] = useState(false);
   const [modalRemoverAberto, setModalRemoverAberto] = useState(false);
   const [modalEditarAberto, setModalEditarAberto] = useState(false);
@@ -19,8 +21,9 @@ const Edicao: FC = () => {
     setModalEditarAberto(true);
   };
   const onClickCardapio: MouseEventHandler<HTMLButtonElement> = () => {
-    console.log("IR CARDAPIOO");
+    navegar("/");
   };
+
   const handleFecharModalInserir = useCallback(
     () => setModalInserirAberto(false),
     []

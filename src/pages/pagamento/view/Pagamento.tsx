@@ -13,46 +13,49 @@ import {
   Button,
   TextField,
 } from "@mui/material";
-import { ChangeEvent, FC, useState } from "react";
+import {
+  ChangeEvent,
+  FC,
+  MouseEventHandler,
+  useCallback,
+  useState,
+} from "react";
+import { useNavigate } from "react-router-dom";
 import { PRIMARY, SECONDARY, SECONDARY2 } from "../../../config/theme";
 import { usePedidoContexto } from "../../../context/globalContext";
 import CardInformativo from "../../../Shared/cardInformativo/CardInformativo";
 import { formaDePagamento } from "../../../Shared/constantes/Constantes";
 import { formatarMoeda } from "../../../Shared/Utils";
+import ModalFinalizar from "../components/ModalFinalizar";
 
-interface PagamentoProps {
-  refNomeCliente?: React.Ref<HTMLInputElement>;
-  refCPF?: React.Ref<HTMLInputElement>;
-  refCEP?: React.Ref<HTMLInputElement>;
-  refLogradouro?: React.Ref<HTMLInputElement>;
-  refNumero?: React.Ref<HTMLInputElement>;
-  refComplemento?: React.Ref<HTMLInputElement>;
-}
-const Pagamento: FC<PagamentoProps> = ({
-  refNomeCliente,
-  refCPF,
-  refCEP,
-  refLogradouro,
-  refNumero,
-  refComplemento,
-}) => {
+const Pagamento: FC = () => {
+  const navegar = useNavigate();
+  const [modalAberto, setModalAberto] = useState(false);
+  const onClickFinalizar: MouseEventHandler<HTMLButtonElement> = () => {
+    setModalAberto(true);
+  };
+
+  const handleFecharModal = useCallback(() => {
+    setModalAberto(false);
+    navegar("/");
+    console.log("salva no banco e volta p cardapio");
+  }, []);
+
   const [formaPagamentoSelecionada, setFormaPagamentoSelecionada] =
-    useState<number>(1);
+    useState<number>();
 
   const handleTipoPagamento = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFormaPagamentoSelecionada(parseInt(event.target.value));
   };
 
-  const { nome, setNome } = useState("");
-  const { cpf, setCpf } = useState(0);
-  const { endereco, setEndereco } = useState({
-    cep: 32315040,
-    logradouro: "",
-    numero: 0,
-    complemento: "apto 00",
-  });
-
   const { pedido, setPedido } = usePedidoContexto();
+  console.log(pedido);
+  const valorTotal =
+    pedido?.refeicao.reduce(
+      (soma, refeicao) =>
+        soma + refeicao.valorRefeicao * refeicao.quantidadeRefeicao,
+      0
+    ) || 0;
 
   return (
     <Grid
@@ -105,10 +108,12 @@ const Pagamento: FC<PagamentoProps> = ({
               maxLength: 50,
             }}
             onChange={(event: ChangeEvent<HTMLTextAreaElement>) => {
-              const nome = event.target.value;
-              if (nome) setNome(nome);
+              const novoNome = event.target.value;
+              setPedido({
+                ...pedido,
+                cliente: { ...pedido?.cliente, nome: novoNome },
+              });
             }}
-            inputRef={refNomeCliente}
           />
         </Grid>
         <Grid item>
@@ -118,11 +123,14 @@ const Pagamento: FC<PagamentoProps> = ({
             inputProps={{
               maxLength: 11,
             }}
+            value={pedido.cliente.cpf}
             onChange={(event: ChangeEvent<HTMLTextAreaElement>) => {
-              const cpf = event.target.value;
-              if (cpf) setCpf(cpf);
+              const novoCpf = parseInt(event.target.value);
+              setPedido({
+                ...pedido,
+                cliente: { ...pedido?.cliente, cpf: novoCpf },
+              });
             }}
-            inputRef={refCPF}
           />
         </Grid>
       </Grid>
@@ -148,14 +156,20 @@ const Pagamento: FC<PagamentoProps> = ({
             label="CEP"
             variant="outlined"
             fullWidth
+            value={pedido.cliente.endereco.cep}
             inputProps={{
               maxLength: 8,
             }}
             onChange={(event: ChangeEvent<HTMLTextAreaElement>) => {
-              const cep = event.target.value;
-              if (cep) setEndereco({ ...endereco, cep });
+              const novoCep = parseInt(event.target.value);
+              setPedido({
+                ...pedido,
+                cliente: {
+                  ...pedido.cliente,
+                  endereco: { ...pedido.cliente.endereco, cep: novoCep },
+                },
+              });
             }}
-            inputRef={refCEP}
           />
         </Grid>
         <Grid item>
@@ -167,10 +181,18 @@ const Pagamento: FC<PagamentoProps> = ({
               maxLength: 100,
             }}
             onChange={(event: ChangeEvent<HTMLTextAreaElement>) => {
-              const logradouro = event.target.value;
-              if (logradouro) setEndereco({ ...endereco, logradouro });
+              const novoLogradouro = event.target.value;
+              setPedido({
+                ...pedido,
+                cliente: {
+                  ...pedido.cliente,
+                  endereco: {
+                    ...pedido.cliente.endereco,
+                    logradouro: novoLogradouro,
+                  },
+                },
+              });
             }}
-            inputRef={refLogradouro}
           />
         </Grid>
         <Grid item>
@@ -182,10 +204,15 @@ const Pagamento: FC<PagamentoProps> = ({
               maxLength: 4,
             }}
             onChange={(event: ChangeEvent<HTMLTextAreaElement>) => {
-              const numero = event.target.value;
-              if (numero) setEndereco({ ...endereco, numero });
+              const novoNumero = parseInt(event.target.value);
+              setPedido({
+                ...pedido,
+                cliente: {
+                  ...pedido.cliente,
+                  endereco: { ...pedido.cliente.endereco, numero: novoNumero },
+                },
+              });
             }}
-            inputRef={refNumero}
           />
         </Grid>
         <Grid item>
@@ -197,10 +224,18 @@ const Pagamento: FC<PagamentoProps> = ({
               maxLength: 10,
             }}
             onChange={(event: ChangeEvent<HTMLTextAreaElement>) => {
-              const complemento = event.target.value;
-              if (complemento) setEndereco({ ...endereco, complemento });
+              const novoComplemento = event.target.value;
+              setPedido({
+                ...pedido,
+                cliente: {
+                  ...pedido.cliente,
+                  endereco: {
+                    ...pedido.cliente.endereco,
+                    complemento: novoComplemento,
+                  },
+                },
+              });
             }}
-            inputRef={refComplemento}
           />
         </Grid>
       </Grid>
@@ -219,26 +254,45 @@ const Pagamento: FC<PagamentoProps> = ({
           paddingLeft: "16px",
         }}
       >
-        {pedido?.refeicao.map((item) => (
-          <Grid
-            container
-            sx={{
-              fontWeight: "500",
-              fontSize: "1.5rem",
-              color: PRIMARY,
-            }}
-          >
-            <Grid item xs={6}>
-              {item.nomeRefeicao}
+        {pedido?.refeicao.map((item) =>
+          item.quantidadeRefeicao > 0 ? (
+            <Grid
+              container
+              sx={{
+                fontWeight: "500",
+                fontSize: "1.5rem",
+                color: PRIMARY,
+              }}
+            >
+              <Grid item xs={6}>
+                {item.nomeRefeicao}
+              </Grid>
+              <Grid item xs={3}>
+                {item.quantidadeRefeicao}
+              </Grid>
+              <Grid item xs={3}>
+                {formatarMoeda(item.valorRefeicao)}
+              </Grid>
             </Grid>
-            <Grid item xs={3}>
-              {item.quantidadeRefeicao}
-            </Grid>
-            <Grid item xs={3}>
-              {formatarMoeda(item.valorRefeicao)}
-            </Grid>
+          ) : (
+            ""
+          )
+        )}
+        <Grid
+          container
+          sx={{
+            fontWeight: "500",
+            fontSize: "1.5rem",
+            color: PRIMARY,
+          }}
+        >
+          <Grid item xs={11}>
+            Valor Total
           </Grid>
-        ))}
+          <Grid item xs={1}>
+            {formatarMoeda(valorTotal)}
+          </Grid>
+        </Grid>
       </Grid>
       <Grid item sm={12} marginLeft="1rem" marginRight="1rem" marginTop="1rem">
         <Typography fontSize="1.2rem" color={SECONDARY} fontWeight="700">
@@ -338,10 +392,17 @@ const Pagamento: FC<PagamentoProps> = ({
         marginTop="1rem"
       >
         <Button
-          sx={{ color: "black", backgroundColor: SECONDARY, width: "150px" }}
+          sx={{ color: PRIMARY, backgroundColor: SECONDARY, width: "150px" }}
+          onClick={onClickFinalizar}
         >
           Finalizar
         </Button>
+      </Grid>
+      <Grid item>
+        <ModalFinalizar
+          modalAberto={modalAberto}
+          handleFecharModal={handleFecharModal}
+        />
       </Grid>
     </Grid>
   );

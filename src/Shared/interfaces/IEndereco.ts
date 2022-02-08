@@ -1,8 +1,8 @@
 import { Nullable } from "../constantes/Nullable";
 
 export interface IEndereco {
-  cep: number;
+  cep?: number;
   logradouro: string;
-  numero: number;
+  numero?: number;
   complemento: Nullable<string>;
 }

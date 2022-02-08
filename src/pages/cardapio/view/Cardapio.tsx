@@ -1,16 +1,19 @@
 import { Edit } from "@mui/icons-material";
 import { Button, Grid, Typography } from "@mui/material";
 import { FC, MouseEventHandler, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { PRIMARY, SECONDARY } from "../../../config/theme";
 import { usePedidoContexto } from "../../../context/globalContext";
 import Repository from "../../../repositories/Repository";
 import { IRefeicao } from "../../../Shared/interfaces/IRefeicao";
+import Pagamento from "../../pagamento/view/Pagamento";
 import CardItem from "../components/CardItem";
 
 // sempre q quiser mudar algo no pedido da setPedido e pronto
 // setPedido({...pedido, nomeCliente}) -> isso aqui atualiza o nome do cliente
 
 const Cardapio: FC = () => {
+  const navegar = useNavigate();
   const { pedido, setPedido } = usePedidoContexto();
   const [itemCardapio, setItemCardapio] = useState<IRefeicao[]>();
   useEffect(() => {
@@ -22,11 +25,18 @@ const Cardapio: FC = () => {
       });
   }, []);
 
-  const onClickPagar: MouseEventHandler<HTMLButtonElement> = () => {
-    console.log(pedido);
-    console.log("TELA PAGAMENTO");
+  const onClickEdit: MouseEventHandler<HTMLButtonElement> = () => {
+    navegar("/edicao");
   };
 
+  const onClickPagar: MouseEventHandler<HTMLButtonElement> = () => {
+    console.log(pedido);
+    navegar("/pagamento");
+  };
+
+  const onClickHistorico: MouseEventHandler<HTMLImageElement> = () => {
+    navegar("/historico");
+  };
   return (
     <Grid
       container
@@ -60,7 +70,16 @@ const Cardapio: FC = () => {
           </Typography>
         </Grid>
         <Grid item marginLeft="2rem">
-          <Edit sx={{ color: SECONDARY }}></Edit>
+          <Edit onClick={onClickEdit} sx={{ color: SECONDARY }}></Edit>
+        </Grid>
+        <Grid item marginLeft="2rem">
+          <img
+            onClick={onClickHistorico}
+            src="historico.png"
+            alt="historico"
+            width="48px"
+            height="48px"
+          />
         </Grid>
       </Grid>
       <Grid
@@ -86,7 +105,7 @@ const Cardapio: FC = () => {
           ))}
         <Grid item>
           <Button
-            sx={{ color: "black", backgroundColor: SECONDARY, width: "300px" }}
+            sx={{ color: PRIMARY, backgroundColor: SECONDARY, width: "300px" }}
             onClick={onClickPagar}
           >
             Pagar
