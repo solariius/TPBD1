@@ -95,7 +95,7 @@ const Edicao: FC = () => {
       >
         <Grid item>
           <Button
-            sx={{ color: "black", backgroundColor: SECONDARY, width: "300px" }}
+            sx={{ color: PRIMARY, backgroundColor: SECONDARY, width: "300px" }}
             onClick={onClickInserir}
           >
             Inserir
@@ -103,7 +103,7 @@ const Edicao: FC = () => {
         </Grid>
         <Grid item>
           <Button
-            sx={{ color: "black", backgroundColor: SECONDARY, width: "300px" }}
+            sx={{ color: PRIMARY, backgroundColor: SECONDARY, width: "300px" }}
             onClick={onClickRemover}
           >
             Remover
@@ -111,7 +111,7 @@ const Edicao: FC = () => {
         </Grid>
         <Grid item>
           <Button
-            sx={{ color: "black", backgroundColor: SECONDARY, width: "300px" }}
+            sx={{ color: PRIMARY, backgroundColor: SECONDARY, width: "300px" }}
             onClick={onClickEditar}
           >
             Editar
@@ -119,7 +119,7 @@ const Edicao: FC = () => {
         </Grid>
         <Grid item>
           <Button
-            sx={{ color: "black", backgroundColor: SECONDARY, width: "300px" }}
+            sx={{ color: PRIMARY, backgroundColor: SECONDARY, width: "300px" }}
             onClick={onClickCardapio}
           >
             Voltar para o cardápio

@@ -1,8 +1,3 @@
-// lista com todos os itens e valor
-// somatório dos valores
-// forma de pagamento (pix, credito/debito) com mensagem
-// botão finalizar q abre o modal de finalizaçao
-
 import {
   FormControlLabel,
   FormControl,

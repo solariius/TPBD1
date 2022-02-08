@@ -1,6 +1,6 @@
 import { Grid, Typography } from "@mui/material";
 import { FC } from "react";
-import { PRIMARY } from "../../../config/theme";
+import { SECONDARY } from "../../../config/theme";
 import { usePedidoContexto } from "../../../context/globalContext";
 import Modal from "../../../Shared/Modal/Modal";
 
@@ -22,7 +22,13 @@ const ModalFinalizar: FC<IModalFinalizarProps> = ({
       textoBotaoSecundario="Fechar"
       descricaoModal={
         <Grid container direction="column" justifyContent="center">
-          <Typography>
+          <Typography
+            sx={{
+              fontWeight: "600",
+              fontSize: "1.5rem",
+              color: SECONDARY,
+            }}
+          >
             Pedido realizado, aguarde o entregador chegar com o seu pedido
             quentinho!
           </Typography>
@@ -30,15 +36,11 @@ const ModalFinalizar: FC<IModalFinalizarProps> = ({
             item
             sx={{
               fontWeight: "500",
-              fontSize: "1.5rem",
-              color: PRIMARY,
+              fontSize: "2rem",
+              color: SECONDARY,
             }}
           >
-            <Grid item>
-              <Typography>Id pedido:</Typography>
-            </Grid>
-
-            <Grid item>{pedido.idPedido}</Grid>
+            Id pedido: {pedido.idPedido}
           </Grid>
         </Grid>
       }

@@ -6,7 +6,6 @@ import { PRIMARY, SECONDARY } from "../../../config/theme";
 import { usePedidoContexto } from "../../../context/globalContext";
 import Repository from "../../../repositories/Repository";
 import { IRefeicao } from "../../../Shared/interfaces/IRefeicao";
-import Pagamento from "../../pagamento/view/Pagamento";
 import CardItem from "../components/CardItem";
 
 // sempre q quiser mudar algo no pedido da setPedido e pronto
@@ -25,7 +24,7 @@ const Cardapio: FC = () => {
       });
   }, []);
 
-  const onClickEdit: MouseEventHandler<HTMLButtonElement> = () => {
+  const onClickEdit: MouseEventHandler<SVGSVGElement> = () => {
     navegar("/edicao");
   };
 
@@ -70,7 +69,10 @@ const Cardapio: FC = () => {
           </Typography>
         </Grid>
         <Grid item marginLeft="2rem">
-          <Edit onClick={onClickEdit} sx={{ color: SECONDARY }}></Edit>
+          <Edit
+            onClick={onClickEdit}
+            sx={{ width: "36px", height: "36px", color: SECONDARY }}
+          ></Edit>
         </Grid>
         <Grid item marginLeft="2rem">
           <img

@@ -76,10 +76,10 @@ const Historico: FC = () => {
                 }}
               >
                 <Grid item xs={8}>
-                  {item.cliente.nome}
+                  Cliente: {item.cliente.nome}
                 </Grid>
                 <Grid item xs={4}>
-                  {item.idPedido}
+                  Número do pedido: {item.idPedido}
                 </Grid>
 
                 {item.refeicao.length &&
