@@ -6,38 +6,16 @@ import { IRefeicao } from "../Shared/interfaces/IRefeicao";
 
 class Repository {
   listarCardapio(refeicao: IRefeicao[]) {
-    // axios.get("url", refeicao);
-    return [
-      {
-        idRefeicao: 1,
-        nomeRefeicao: "feijoada",
-        descricaoRefeicao: "gostosa",
-        valorRefeicao: 50,
-        quantidadeRefeicao: 0,
-        calorias: 450,
+    axios.get("http://localhost:3333/", {
+      params: {
+        refeicao: refeicao,
       },
-      {
-        idRefeicao: 2,
-        nomeRefeicao: "lasanhaa",
-        descricaoRefeicao: "gostosa",
-        valorRefeicao: 55,
-        quantidadeRefeicao: 0,
-        calorias: 250,
-      },
-      {
-        idRefeicao: 3,
-        nomeRefeicao: "salada",
-        descricaoRefeicao: "gostosa",
-        valorRefeicao: 20,
-        quantidadeRefeicao: 0,
-        calorias: 454,
-      },
-    ];
+    });
   }
 
   listarPedidos(): IPedidoCompleto[] {
     // instancia numa variavel isso aq axios.get<IPedidoCompelto[]>("URL");
-
+    //axios.get("http://localhost:3333/", pedido.idPedido);
     return [
       {
         idPedido: 12,
@@ -84,21 +62,32 @@ class Repository {
   }
 
   inserirItemCardapio(item: IRefeicao) {
-    //mudar essa string de acordo com o back
-    // axios.post("http://localhost:3333/add", item);
+    axios.post("http://localhost:3333/", {
+      name: item.nomeRefeicao,
+      description: item.descricaoRefeicao,
+      calories: item.calorias,
+      price: item.valorRefeicao,
+      quantity: item.quantidadeRefeicao,
+    });
     console.log("item adicionado com sucesso", item);
   }
   removerItemCardapio(item: IRefeicao) {
-    // `http://www.appdomain.com/users/${VariavelAQUI}`
-    // delete api rest caça no google axios.delete("URL", item);
+    axios.delete(`http://localhost:3333/${item.idRefeicao}`);
+
     console.log("item removido com sucesso", item);
   }
   editarItemCardapio(item: IRefeicao) {
-    // axios.put("URL",item);
+    axios.put(`http://localhost:3333/${item.idRefeicao}`, {
+      name: item.nomeRefeicao,
+      description: item.descricaoRefeicao,
+      calories: item.calorias,
+      price: item.valorRefeicao,
+      quantity: item.quantidadeRefeicao,
+    });
     console.log("item editado com sucesso", item);
   }
   enviarPedido(pedido: IPedidoCompleto) {
-    //  axios.post("URL",pedido);
+    axios.post("http://localhost:3333/", pedido.idPedido);
     console.log("pedido enviad", pedido);
   }
 }

@@ -2,6 +2,7 @@ import { Button, Grid, Typography } from "@mui/material";
 import { FC, MouseEventHandler, useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { PRIMARY, SECONDARY } from "../../../config/theme";
+import Repository from "../../../repositories/Repository";
 import ModalEditar from "../components/ModalEditar";
 import ModalInserir from "../components/ModalInserir";
 import ModalRemover from "../components/ModalRemover";
@@ -10,6 +11,7 @@ const Edicao: FC = () => {
   const [modalInserirAberto, setModalInserirAberto] = useState(false);
   const [modalRemoverAberto, setModalRemoverAberto] = useState(false);
   const [modalEditarAberto, setModalEditarAberto] = useState(false);
+  const [itemCardapio, setItemCardapio] = useState<IRefeicao[]>();
 
   const onClickInserir: MouseEventHandler<HTMLButtonElement> = () => {
     setModalInserirAberto(true);
@@ -37,19 +39,18 @@ const Edicao: FC = () => {
     []
   );
   const handleConfirmarModalInserir = useCallback((enviarDados) => {
+    setItemCardapio(Repository.inserirItemCardapio(enviarDados));
     setModalInserirAberto(false);
-    console.log("INSERE");
-    console.log(enviarDados);
   }, []);
 
   const handleConfirmarModalRemover = useCallback(() => {
+    setItemCardapio(Repository.removerItemCardapio(item));
     setModalRemoverAberto(false);
-    console.log("REMOVE");
   }, []);
 
   const handleConfirmarModalEditar = useCallback(() => {
+    setItemCardapio(Repository.editarItemCardapio());
     setModalEditarAberto(false);
-    console.log("EDITA");
   }, []);
 
   return (
