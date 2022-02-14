@@ -5,8 +5,9 @@ import {
   TextField,
   MenuItem,
 } from "@mui/material";
-import { ChangeEvent, FC, useState } from "react";
+import { ChangeEvent, FC, useEffect, useState } from "react";
 import Repository from "../../../repositories/Repository";
+import { IRefeicao } from "../../../Shared/interfaces/IRefeicao";
 import Modal from "../../../Shared/Modal/Modal";
 
 interface IDados {
@@ -19,28 +20,29 @@ interface IDados {
 interface IModalEditarProps {
   modalEditarAberto: boolean;
   handleFecharModalEditar: () => void;
-  handleConfirmarModalEditar: () => void;
-  refItem?: React.Ref<HTMLInputElement>;
-  refDescricao?: React.Ref<HTMLInputElement>;
-  refValor?: React.Ref<HTMLInputElement>;
-  refCalorias?: React.Ref<HTMLInputElement>;
+  handleConfirmarModalEditar: (enviarDados: IDados | undefined) => void;
 }
 
 const ModalEditar: FC<IModalEditarProps> = ({
   modalEditarAberto,
   handleFecharModalEditar,
   handleConfirmarModalEditar,
-  refItem,
-  refDescricao,
-  refValor,
-  refCalorias,
 }) => {
+  const [itemCardapio, setItemCardapio] = useState<IRefeicao[]>([]);
   const [enviarDados, setEnviarDados] = useState<IDados>();
+  const list = async () => {
+    const copiaCardapio = await Repository.listarCardapio();
+    setItemCardapio(copiaCardapio);
+  };
+  useEffect(() => {
+    list();
+  }, [enviarDados?.idRefeicao]);
+
   return (
     <Modal
       modalAberto={modalEditarAberto}
       handleFecharModal={handleFecharModalEditar}
-      handleConfirmarModal={handleConfirmarModalEditar}
+      handleConfirmarModal={() => handleConfirmarModalEditar(enviarDados)}
       textoBotaoPrincipal="Salvar"
       textoBotaoSecundario="Cancelar"
       confirmacao={true}
@@ -58,23 +60,20 @@ const ModalEditar: FC<IModalEditarProps> = ({
             <Select
               id="refeicao"
               labelId="refeicao-label"
-              value={enviarDados?.idRefeicao}
+              value={enviarDados?.idRefeicao?.toString()}
               variant="outlined"
               onChange={(event: SelectChangeEvent<string>) => {
                 const idRefeicao = parseInt(event.target.value);
                 if (event) setEnviarDados({ ...enviarDados, idRefeicao });
               }}
-              inputRef={refItem}
             >
-              {Repository.listarCardapio(enviarDados?.idRefeicao).map(
-                (item) => {
-                  return (
-                    <MenuItem value={item.idRefeicao}>
-                      {item.nomeRefeicao}
-                    </MenuItem>
-                  );
-                }
-              )}
+              {itemCardapio.map((item) => {
+                return (
+                  <MenuItem value={item.idRefeicao}>
+                    {item.nomeRefeicao}
+                  </MenuItem>
+                );
+              })}
             </Select>
           </Grid>
           <Grid item>
@@ -89,7 +88,6 @@ const ModalEditar: FC<IModalEditarProps> = ({
                 const item = event.target.value;
                 if (event) setEnviarDados({ ...enviarDados, item });
               }}
-              inputRef={refItem}
             />
           </Grid>
           <Grid item>
@@ -104,7 +102,6 @@ const ModalEditar: FC<IModalEditarProps> = ({
                 const descricao = event.target.value;
                 if (event) setEnviarDados({ ...enviarDados, descricao });
               }}
-              inputRef={refDescricao}
             />
           </Grid>
           <Grid item>
@@ -120,7 +117,6 @@ const ModalEditar: FC<IModalEditarProps> = ({
                 const valor = parseInt(event.target.value);
                 if (event) setEnviarDados({ ...enviarDados, valor });
               }}
-              inputRef={refValor}
             />
           </Grid>
           <Grid item>
@@ -136,7 +132,6 @@ const ModalEditar: FC<IModalEditarProps> = ({
                 const calorias = parseInt(event.target.value);
                 if (event) setEnviarDados({ ...enviarDados, calorias });
               }}
-              inputRef={refCalorias}
             />
           </Grid>
         </Grid>

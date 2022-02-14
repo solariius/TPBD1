@@ -8,10 +8,6 @@ interface IModalInserirProps {
   modalInserirAberto: boolean;
   handleFecharModalInserir: () => void;
   handleConfirmarModalInserir: (enviarDados: IDados | undefined) => void;
-  refItem?: React.Ref<HTMLInputElement>;
-  refDescricao?: React.Ref<HTMLInputElement>;
-  refValor?: React.Ref<HTMLInputElement>;
-  refCalorias?: React.Ref<HTMLInputElement>;
 }
 interface IDados {
   item?: string;
@@ -24,10 +20,6 @@ const ModalInserir: FC<IModalInserirProps> = ({
   modalInserirAberto,
   handleFecharModalInserir,
   handleConfirmarModalInserir,
-  refItem,
-  refDescricao,
-  refValor,
-  refCalorias,
 }) => {
   const [enviarDados, setEnviarDados] = useState<IDados>();
 
@@ -59,7 +51,6 @@ const ModalInserir: FC<IModalInserirProps> = ({
               inputProps={{
                 maxLength: 50,
               }}
-              inputRef={refItem}
               onChange={(event: ChangeEvent<HTMLTextAreaElement>) => {
                 const item = event.target.value;
                 if (event) setEnviarDados({ ...enviarDados, item });
@@ -74,7 +65,6 @@ const ModalInserir: FC<IModalInserirProps> = ({
               inputProps={{
                 maxLength: 150,
               }}
-              inputRef={refDescricao}
               onChange={(event: ChangeEvent<HTMLTextAreaElement>) => {
                 const descricao = event.target.value;
                 if (event) setEnviarDados({ ...enviarDados, descricao });
@@ -90,7 +80,6 @@ const ModalInserir: FC<IModalInserirProps> = ({
                 maxLength: 5,
               }}
               type="number"
-              inputRef={refValor}
               onChange={(event: ChangeEvent<HTMLTextAreaElement>) => {
                 const valor = parseInt(event.target.value);
                 if (event) setEnviarDados({ ...enviarDados, valor });
@@ -106,7 +95,6 @@ const ModalInserir: FC<IModalInserirProps> = ({
                 maxLength: 4,
               }}
               type="number"
-              inputRef={refCalorias}
               onChange={(event: ChangeEvent<HTMLTextAreaElement>) => {
                 const calorias = parseInt(event.target.value);
                 if (event) setEnviarDados({ ...enviarDados, calorias });

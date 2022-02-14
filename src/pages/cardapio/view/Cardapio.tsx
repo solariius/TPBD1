@@ -15,13 +15,19 @@ const Cardapio: FC = () => {
   const navegar = useNavigate();
   const { pedido, setPedido } = usePedidoContexto();
   const [itemCardapio, setItemCardapio] = useState<IRefeicao[]>();
-  useEffect(() => {
-    setItemCardapio(Repository.listarCardapio());
+
+  const list = async () => {
+    const copiaCardapio = await Repository.listarCardapio();
+    setItemCardapio(copiaCardapio);
     if (setPedido)
       setPedido({
         ...pedido,
-        refeicao: [...Repository.listarCardapio()],
+        refeicao: [...copiaCardapio],
       });
+  };
+
+  useEffect(() => {
+    list();
   }, []);
 
   const onClickEdit: MouseEventHandler<SVGSVGElement> = () => {

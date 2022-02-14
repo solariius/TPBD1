@@ -11,7 +11,6 @@ const Edicao: FC = () => {
   const [modalInserirAberto, setModalInserirAberto] = useState(false);
   const [modalRemoverAberto, setModalRemoverAberto] = useState(false);
   const [modalEditarAberto, setModalEditarAberto] = useState(false);
-  const [itemCardapio, setItemCardapio] = useState<IRefeicao[]>();
 
   const onClickInserir: MouseEventHandler<HTMLButtonElement> = () => {
     setModalInserirAberto(true);
@@ -39,17 +38,29 @@ const Edicao: FC = () => {
     []
   );
   const handleConfirmarModalInserir = useCallback((enviarDados) => {
-    setItemCardapio(Repository.inserirItemCardapio(enviarDados));
+    Repository.inserirItemCardapio(
+      (enviarDados?.calorias,
+      enviarDados?.descricao,
+      enviarDados?.idRefeicao,
+      enviarDados?.item,
+      enviarDados?.valor)
+    );
     setModalInserirAberto(false);
   }, []);
 
-  const handleConfirmarModalRemover = useCallback(() => {
-    setItemCardapio(Repository.removerItemCardapio(item));
+  const handleConfirmarModalRemover = useCallback((enviarDados) => {
+    Repository.removerItemCardapio(enviarDados);
     setModalRemoverAberto(false);
   }, []);
 
-  const handleConfirmarModalEditar = useCallback(() => {
-    setItemCardapio(Repository.editarItemCardapio());
+  const handleConfirmarModalEditar = useCallback((enviarDados) => {
+    Repository.editarItemCardapio(
+      (enviarDados?.calorias,
+      enviarDados?.descricao,
+      enviarDados?.idRefeicao,
+      enviarDados?.item,
+      enviarDados?.valor)
+    );
     setModalEditarAberto(false);
   }, []);
 

@@ -18,6 +18,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { PRIMARY, SECONDARY, SECONDARY2 } from "../../../config/theme";
 import { usePedidoContexto } from "../../../context/globalContext";
+import Repository from "../../../repositories/Repository";
 import CardInformativo from "../../../Shared/cardInformativo/CardInformativo";
 import { formaDePagamento } from "../../../Shared/constantes/Constantes";
 import { formatarMoeda } from "../../../Shared/Utils";
@@ -29,12 +30,12 @@ const Pagamento: FC = () => {
   const onClickFinalizar: MouseEventHandler<HTMLButtonElement> = () => {
     setModalAberto(true);
   };
-
+  const { pedido, setPedido } = usePedidoContexto();
   const handleFecharModal = useCallback(() => {
+    Repository.enviarPedido(pedido);
     setModalAberto(false);
     navegar("/");
-    console.log("salva no banco e volta p cardapio");
-  }, []);
+  }, [navegar, pedido]);
 
   const [formaPagamentoSelecionada, setFormaPagamentoSelecionada] =
     useState<number>();
@@ -43,8 +44,6 @@ const Pagamento: FC = () => {
     setFormaPagamentoSelecionada(parseInt(event.target.value));
   };
 
-  const { pedido, setPedido } = usePedidoContexto();
-  console.log(pedido);
   const valorTotal =
     pedido?.refeicao.reduce(
       (soma, refeicao) =>

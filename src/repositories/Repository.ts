@@ -1,21 +1,17 @@
-// aqui que fica as chamadas as apis
-
 import axios from "axios";
 import { IPedidoCompleto } from "../Shared/interfaces/IPedidoCompleto";
 import { IRefeicao } from "../Shared/interfaces/IRefeicao";
 
 class Repository {
-  listarCardapio(refeicao: IRefeicao[]) {
-    axios.get("http://localhost:3333/", {
-      params: {
-        refeicao: refeicao,
-      },
-    });
+  async listarCardapio(): Promise<IRefeicao[]> {
+    const response = await axios.get("http://localhost:3333/");
+    return response.data;
   }
 
-  listarPedidos(): IPedidoCompleto[] {
+  async listarPedidos(): Promise<IPedidoCompleto[]> {
     // instancia numa variavel isso aq axios.get<IPedidoCompelto[]>("URL");
-    //axios.get("http://localhost:3333/", pedido.idPedido);
+    // const response = axios.get("http://localhost:3333/");
+    // return response.data;
     return [
       {
         idPedido: 12,

@@ -1,5 +1,5 @@
 import { Button, Grid, Typography } from "@mui/material";
-import { FC, MouseEventHandler, useState } from "react";
+import { FC, MouseEventHandler, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { PRIMARY, SECONDARY } from "../../../config/theme";
 import Repository from "../../../repositories/Repository";
@@ -12,10 +12,16 @@ const Historico: FC = () => {
   const onClickCardapio: MouseEventHandler<HTMLButtonElement> = () => {
     navegar("/");
   };
-  const [pedido, setPedido] = useState<IPedidoCompleto[]>(
-    Repository.listarPedidos()
-  );
-  console.log(pedido);
+
+  const list = async () => {
+    const copiaPedido = await Repository.listarPedidos();
+    setPedido(copiaPedido);
+  };
+  useEffect(() => {
+    list();
+  }, []);
+
+  const [pedido, setPedido] = useState<IPedidoCompleto[]>([]);
 
   return (
     <>
