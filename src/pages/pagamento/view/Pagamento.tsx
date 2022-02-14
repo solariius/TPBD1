@@ -21,7 +21,7 @@ import { usePedidoContexto } from "../../../context/globalContext";
 import Repository from "../../../repositories/Repository";
 import CardInformativo from "../../../Shared/cardInformativo/CardInformativo";
 import { formaDePagamento } from "../../../Shared/constantes/Constantes";
-import { formatarMoeda } from "../../../Shared/Utils";
+import { formatarCalorias, formatarMoeda } from "../../../Shared/Utils";
 import ModalFinalizar from "../components/ModalFinalizar";
 
 const Pagamento: FC = () => {
@@ -48,6 +48,13 @@ const Pagamento: FC = () => {
     pedido?.refeicao.reduce(
       (soma, refeicao) =>
         soma + refeicao.valorRefeicao * refeicao.quantidadeRefeicao,
+      0
+    ) || 0;
+
+  const valorTotalCalorias =
+    pedido?.refeicao.reduce(
+      (soma, refeicao) =>
+        soma + refeicao.calorias * refeicao.quantidadeRefeicao,
       0
     ) || 0;
 
@@ -96,6 +103,7 @@ const Pagamento: FC = () => {
         </Grid>
         <Grid item xs={3.3}>
           <TextField
+            required
             label="Nome"
             variant="outlined"
             inputProps={{
@@ -147,6 +155,7 @@ const Pagamento: FC = () => {
         </Grid>
         <Grid item>
           <TextField
+            required
             label="CEP"
             variant="outlined"
             fullWidth
@@ -168,6 +177,7 @@ const Pagamento: FC = () => {
         </Grid>
         <Grid item>
           <TextField
+            required
             label="Logradouro"
             variant="outlined"
             fullWidth
@@ -191,6 +201,7 @@ const Pagamento: FC = () => {
         </Grid>
         <Grid item>
           <TextField
+            required
             label="Número"
             variant="outlined"
             fullWidth
@@ -280,6 +291,12 @@ const Pagamento: FC = () => {
             color: PRIMARY,
           }}
         >
+          <Grid item xs={11}>
+            Total de calorias
+          </Grid>
+          <Grid item xs={1}>
+            {formatarCalorias(valorTotalCalorias)}
+          </Grid>
           <Grid item xs={11}>
             Valor Total
           </Grid>
@@ -374,24 +391,33 @@ const Pagamento: FC = () => {
           />
         )}
       </Grid>
-      <Grid
-        container
-        item
-        sm={12}
-        direction="row"
-        alignItems="center"
-        justifyContent="flex-end"
-        marginRight="1rem"
-        marginBottom="1rem"
-        marginTop="1rem"
-      >
-        <Button
-          sx={{ color: PRIMARY, backgroundColor: SECONDARY, width: "150px" }}
-          onClick={onClickFinalizar}
-        >
-          Finalizar
-        </Button>
-      </Grid>
+      {pedido.cliente.nome &&
+        pedido.cliente.endereco.logradouro &&
+        pedido.cliente.endereco.cep &&
+        pedido.cliente.endereco.numero && (
+          <Grid
+            container
+            item
+            sm={12}
+            direction="row"
+            alignItems="center"
+            justifyContent="flex-end"
+            marginRight="1rem"
+            marginBottom="1rem"
+            marginTop="1rem"
+          >
+            <Button
+              sx={{
+                color: PRIMARY,
+                backgroundColor: SECONDARY,
+                width: "150px",
+              }}
+              onClick={onClickFinalizar}
+            >
+              Finalizar
+            </Button>
+          </Grid>
+        )}
       <Grid item>
         <ModalFinalizar
           modalAberto={modalAberto}
